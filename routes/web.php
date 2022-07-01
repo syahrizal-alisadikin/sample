@@ -30,12 +30,16 @@ Route::match(["GET", "POST"], "/register", function () {
     return redirect("/login");
 })->name("register");
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('users', UserController::class);
+Route::prefix('admin')
+    ->middleware('isAdmin')
+    ->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('home');
+        Route::resource('users', UserController::class);
 
-Route::resource('rooms', RoomController::class);
+        Route::resource('rooms', RoomController::class);
 
-Route::resource('school-years', SchoolYearController::class);
+        Route::resource('school-years', SchoolYearController::class);
 
-Route::resource('costs', CostController::class);
+        Route::resource('costs', CostController::class);
+    });

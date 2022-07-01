@@ -18,11 +18,11 @@
 
         <label for="">Role</label>
         <br>
-        <input type="checkbox" name="roles[]" id="ADMIN" value="ADMIN">
+        <input type="radio" name="roles" id="ADMIN" value="ADMIN">
         <label for="ADMIN">Administrator</label>
-        <input type="checkbox" name="roles[]" id="STAFF" value="STAFF">
-        <label for="STAFF">Staff TU</label>
-        <input type="checkbox" name="roles[]" id="SISWA" value="SISWA">
+        <input type="radio"  name="roles" id="STAFF" value="STAFF">
+        <label for="STAFF">Staff</label>
+        <input type="radio"  name="roles" id="SISWA" value="SISWA">
         <label for="SISWA">Siswa</label>
         <br>
         <br>
