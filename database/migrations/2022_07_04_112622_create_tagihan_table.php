@@ -13,7 +13,7 @@ class CreateTagihanTable extends Migration
      */
     public function up()
     {
-        Schema::table('tagihan', function (Blueprint $table) {
+        Schema::create('tagihan', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description');
@@ -32,8 +32,6 @@ class CreateTagihanTable extends Migration
      */
     public function down()
     {
-        Schema::table('tagihan', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('tagihan');
     }
 }
