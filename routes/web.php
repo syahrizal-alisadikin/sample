@@ -43,3 +43,11 @@ Route::prefix('admin')
 
         Route::resource('costs', CostController::class);
     });
+
+Route::prefix('siswa')
+    ->middleware('IsSiswa')
+    ->group(function () {
+        Route::get('/', function () {
+            return "Ini halaman Siswa";
+        });
+    });
