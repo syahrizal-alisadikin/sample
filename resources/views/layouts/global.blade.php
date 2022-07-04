@@ -73,8 +73,8 @@ mb-4" type="text" placeholder="Search" aria-label="Search" />
                     <h6 class="m-2">Data Master</h6>
 
                     <li>
-                        <a href="{{route('users.index')}}">
-                            <span class="oi oi-person"></span>Pengguna
+                        <a href="#">
+                            <span class="oi oi-person"></span>Siswa
                         </a>
                     </li>
                     <li>
@@ -90,6 +90,12 @@ mb-4" type="text" placeholder="Search" aria-label="Search" />
                     <li>
                         <a href="{{route('costs.index')}}">
                             <span class="oi oi-dollar"></span> Biaya
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('users.index')}}">
+                            <span class="oi oi-person"></span>Staff / Admin
                         </a>
                     </li>
                     <div class="d-block d-md-none">

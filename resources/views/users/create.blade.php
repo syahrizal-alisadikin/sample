@@ -1,5 +1,5 @@
 @extends("layouts.global")
-@section("title")Tambah Data Pengguna @endsection
+@section("title")Tambah Data Admin / Staff @endsection
 @section("content")
 <div class="col-md-8">
     @if(session('status'))
@@ -22,8 +22,8 @@
         <label for="ADMIN">Administrator</label>
         <input type="radio"  name="roles" id="STAFF" value="STAFF">
         <label for="STAFF">Staff</label>
-        <input type="radio"  name="roles" id="SISWA" value="SISWA">
-        <label for="SISWA">Siswa</label>
+        {{-- <input type="radio"  name="roles" id="SISWA" value="SISWA">
+        <label for="SISWA">Siswa</label> --}}
         <br>
         <br>
         <label for="avatar">Avatar image</label>

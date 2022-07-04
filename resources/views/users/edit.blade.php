@@ -1,5 +1,5 @@
 @extends('layouts.global')
-@section('title') Ubah Data Pengguna @endsection
+@section('title') Ubah Data {{ $user->roles }} @endsection
 @section('content')
 
 <div class="col-md-8">
@@ -33,8 +33,8 @@
         <label for="ADMIN">Administrator</label>
         <input type="radio" {{ "STAFF" == $user->roles ? "checked" : ""}} name="roles" id="STAFF" value="STAFF">
         <label for="STAFF">Staff</label>
-        <input type="radio" {{ "SISWA" == $user->roles ? "checked" : ""}} name="roles" id="SISWA" value="SISWA">
-        <label for="SISWA">Siswa</label>
+        {{-- <input type="radio" {{ "SISWA" == $user->roles ? "checked" : ""}} name="roles" id="SISWA" value="SISWA">
+        <label for="SISWA">Siswa</label> --}}
         <br>
         <br>
         <label for="avatar">Avatar image</label>

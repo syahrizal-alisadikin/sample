@@ -1,5 +1,5 @@
 @extends("layouts.global")
-@section("title") Daftar Pengguna @endsection
+@section("title") Daftar Admin / Staff @endsection
 @section("content")
 
 @if(session('status'))
