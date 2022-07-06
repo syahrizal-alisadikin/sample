@@ -19,11 +19,15 @@ class CreateStudentsTable extends Migration
             $table->string('name');
             $table->text('address');
             $table->string('gender');
+            //$table->unsignedBigInteger('id_kelas');
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+
+            // $table->foreign('id_kelas')->references('id')->on('rooms')->onDelete('cascade');
         });
     }
 

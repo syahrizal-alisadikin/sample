@@ -9,6 +9,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\CostController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,4 @@ Route::resource('rooms', RoomController::class);
 Route::resource('school-years', SchoolYearController::class);
 
 Route::resource('costs', CostController::class);
+Route::resource('students', StudentController::class);
