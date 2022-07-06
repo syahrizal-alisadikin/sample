@@ -36,7 +36,7 @@
                     <td>{{$row->name}}</td>
                     <td>{{$row->address}}</td>
                     <td>{{$row->gender}}</td>
-                    <td>{{$row->rooms->name}}</td>
+                    <td>{{$row->room->name}}</td>
                     <td></td>
                     <td>aksi</td>
 
