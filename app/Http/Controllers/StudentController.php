@@ -17,7 +17,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
 
-        $students = Student::with(['rooms'])->paginate(10);
+        $students = Student::with('room')->paginate(10);
         // dd($students);
 
 
