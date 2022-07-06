@@ -72,12 +72,12 @@
                 <ul class="polished-sidebar-menu ml-0 pt-4 p-0 d-md-block">
                     <input class="border-dark form-control d-block d-md-none
 mb-4" type="text" placeholder="Search" aria-label="Search" />
-                    <li><a href="/home"><span class="oi oi-home"></span>Beranda</a></li>
+                    <li><a href="{{ url('/admin') }}"><span class="oi oi-home"></span>Beranda</a></li>
                     <h6 class="m-2">Data Master</h6>
 
                     <li>
-                        <a href="{{route('users.index')}}">
-                            <span class="oi oi-person"></span>Pengguna
+                        <a href="#">
+                            <span class="oi oi-person"></span>Siswa
                         </a>
                     </li>
                     <li>
@@ -98,6 +98,12 @@ mb-4" type="text" placeholder="Search" aria-label="Search" />
                     <li>
                         <a href="{{route('costs.index')}}">
                             <span class="oi oi-dollar"></span> Biaya
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('users.index')}}">
+                            <span class="oi oi-person"></span>Staff / Admin
                         </a>
                     </li>
                     <div class="d-block d-md-none">

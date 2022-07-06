@@ -4,20 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $guarded = [];
+    protected $guarded = ["id"];
 
-
-    public function rooms()
+    public function user()
     {
-        return $this->belongsTo(Room::class, 'room_id', 'id');
+        return $this->belongsTo(User::class);
     }
-    public function school_years_id()
+
+    public function room()
     {
-        return $this->belongsTo(SchoolYear::class, 'school_year_id', 'id');
+        return $this->belongsTo(Room::class);
+    }
+
+    public function years()
+    {
+        return $this->belongsTo(SchoolYear::class);
     }
 }

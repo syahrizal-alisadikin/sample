@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = \App\Models\User::paginate(10);
+        $users = \App\Models\User::whereIn('roles', ["ADMIN", "STAFF"])->paginate(10);
         $filterKeyword = $request->get('keyword');
         if ($filterKeyword) {
             $users = \App\Models\User::where(
@@ -28,6 +28,8 @@ class UserController extends Controller
         }
         return view('users.index', ['users' => $users]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.

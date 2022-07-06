@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,11 +15,11 @@ class AdministratorSeeder extends Seeder
      */
     public function run()
     {
-        $administrator = new \App\Models\User;
+        $administrator = new User;
         $administrator->username = "administrator";
         $administrator->name = "Site Administrator";
         $administrator->email = "administrator@mail.test";
-        $administrator->roles = json_encode(["ADMIN"]);
+        $administrator->roles = "ADMIN";
         $administrator->password = Hash::make("secret");
         $administrator->avatar = "belum-ada-gambar.png";
 

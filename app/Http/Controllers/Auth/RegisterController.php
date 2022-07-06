@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Student;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -69,5 +71,41 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'nisn' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'room_id' => ['required', 'integer'],
+            'school_year_id' => ['required', 'integer'],
+            'gender' => ["required"],
+            'address' => ["required"]
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'username' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'roles' => "SISWA",
+        ]);
+
+        $student = Student::create([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'nisn' => $request->nisn,
+            'room_id' => $request->room_id,
+            'school_years_id' => $request->school_year_id,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'created_by' => 0
+
+        ]);
+
+        return redirect()->route('login')->with('success', 'Berhasil Register, Silahkan Login!');
     }
 }

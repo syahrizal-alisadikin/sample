@@ -1,5 +1,5 @@
 @extends("layouts.global")
-@section("title") Daftar Pengguna @endsection
+@section("title") Daftar Admin / Staff @endsection
 @section("content")
 
 @if(session('status'))
@@ -62,9 +62,11 @@
                 N/A
                 @endif
             </td>
-            <td>@foreach (json_decode($user->roles) as $role)
+            <td>
+                {{ $user->roles }}
+                {{-- @foreach (json_decode($user->roles) as $role)
                 &middot; {{$role}} <br>
-                @endforeach
+                @endforeach --}}
             </td>
             <td>
                 <a class="btn btn-primary text-white btn-sm" href="{{route('users.edit', [$user->id])}}">Ubah</a>
