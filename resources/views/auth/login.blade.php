@@ -47,9 +47,10 @@ __('Login') }}
                     </div> -->
                     <div class="form-group row mb-0">
                         <div class="col-md-12">
-                            <button type="submit" class="btn-block btn btn-primary">
+                            <button type="submit" class="btn-block btn btn-primary mb-3">
                                 {{ __('Silahkan Masuk') }}
                             </button>
+                            <a href="/register-student" class="btn btn-secondary btn-block">Register</a>
                             <br>
                             <a class="btn btn-link pl-0" href="{{route('password.request') }}">
                                 {{ __('Lupa Password?') }}
