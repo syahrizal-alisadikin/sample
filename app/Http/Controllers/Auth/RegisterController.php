@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Student;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -85,7 +86,26 @@ class RegisterController extends Controller
             'address' => ["required"]
         ]);
 
+        $user = User::create([
+            'name' => $request->name,
+            'username' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'roles' => "SISWA",
+        ]);
 
-        return "ini register " . $request->name;
+        $student = Student::create([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'nisn' => $request->nisn,
+            'room_id' => $request->room_id,
+            'school_years_id' => $request->school_year_id,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'created_by' => 0
+
+        ]);
+
+        return redirect()->route('login')->with('success', 'Berhasil Register, Silahkan Login!');
     }
 }

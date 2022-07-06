@@ -11,6 +11,12 @@
 __('Login') }}
             </div> --}}
             <div class="card-body">
+                @if ($message = Session::get('success'))
+            <div class="alert alert-info alert-block my-3">
+
+              <strong>{{ $message }}</strong>
+            </div>
+          @endif
                 <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                     @csrf
                     <div class="form-group row">

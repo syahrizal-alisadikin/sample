@@ -45,7 +45,6 @@ Route::prefix('admin')
     ->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
         Route::resource('users', UserController::class);
-        Route::resource('student', StudentController::class);
 
         Route::resource('rooms', RoomController::class);
 

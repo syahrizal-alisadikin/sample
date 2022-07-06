@@ -49,6 +49,7 @@
                 <input
                   type="email"
                     name="email"
+                    value="{{ old('email') }}"
                   class="form-control @error('email') is-invalid @enderror"
                   placeholder="Email Address"
                 />
@@ -110,7 +111,7 @@
                 <select name="school_year_id" class="form-control @error('school_year_id') is-invalid @enderror" required id="">
                     <option value="">Pilih Tahun</option>
                     @foreach ($school_years as $item)
-                      <option value="{{$item->id}}">{{$item->name}}</option>
+                      <option value="{{$item->id}}">{{$item->year}}</option>
                     @endforeach
                 </select>
                 
