@@ -73,7 +73,7 @@ mb-4" type="text" placeholder="Search" aria-label="Search" />
                     <h6 class="m-2">Data Master</h6>
 
                     <li>
-                        <a href="{{ route('student.index') }}">
+                        <a href="#">
                             <span class="oi oi-person"></span>Siswa
                         </a>
                     </li>
