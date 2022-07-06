@@ -17,6 +17,7 @@ class AddPenyesuaianTableCosts extends Migration
             $table->unsignedBigInteger('student_id')->after('name')->nullable();
             $table->unsignedBigInteger('midtran_id')->after('student_id')->nullable();
             $table->unsignedBigInteger('tagihan_id')->after('midtran_id')->nullable();
+            $table->enum('jenis_pembayaran', ["OFFLINE", "ONLINE"])->after('tagihan_id')->default("OFFLINE");
             $table->enum('status', ["PENDING", "SUCCESS", "FAILED"])->default("PENDING");
         });
     }
