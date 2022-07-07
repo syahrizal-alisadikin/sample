@@ -62,7 +62,8 @@ Route::prefix('siswa')
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('student.dashboard.index');
         Route::get('/friend', [DashboardController::class, 'friend'])->name('friend.index');
-        Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
-        Route::get('/transaction/create', [TransactionController::class, 'create'])->name('transaction.create');
-        Route::get('/transaction/get-nominal/{id}', [TransactionController::class, 'nominal'])->name('transaction.nominal');
+        Route::get('/transaction', [TransactionController::class, 'index'])->name('siswa.transaction.index');
+        Route::get('/transaction/create', [TransactionController::class, 'create']);
+        Route::get('/transaction/get-nominal/{id}', [TransactionController::class, 'nominal']);
+        Route::post('/transaction/store', [TransactionController::class, 'store']);
     });

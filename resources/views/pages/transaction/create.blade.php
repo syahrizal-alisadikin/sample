@@ -7,7 +7,7 @@
         {{session('status')}}
     </div>
     @endif
-    <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{route('costs.store')}}" method="POST">
+    <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{url('siswa/transaction/store')}}" method="POST">
         @csrf
         <label for="">Transaction</label> <br>
         <select name="cost_id" class="form-control" required id="cost_id">
@@ -26,7 +26,7 @@
             <option value="ONLINE">ONLINE</option>
         </select> <br>
         
-        <input type="submit" class="btn btn-success" value="Simpan" />
+        <input type="submit" class="btn btn-success" value="Bayar" />
     </form>
 </div>
 

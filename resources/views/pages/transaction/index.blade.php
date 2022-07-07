@@ -29,7 +29,10 @@
 <table class="table table-bordered" id="transaction-table" style="width: 100%">
     <thead>
         <tr>
-            <th><b>Nama</b></th>
+            <th><b>Nominal</b></th>
+            <th><b>Nama Pembayaran</b></th>
+            <th><b>Jenis Pembayaran</b></th>
+            <th><b>Status Pembayaran</b></th>
            
         </tr>
     </thead>
@@ -48,7 +51,10 @@
           url: '{!! url()->current() !!}',
         },
         columns:[
-          { data:'id', name:'id'},
+          { data:'nominal', name:'nominal'},
+          { data:'cost.name', name:'cost.name'},
+          { data:'jenis_pembayaran', name:'jenis_pembayaran'},
+          { data:'status', name:'status'},
        
           
          
