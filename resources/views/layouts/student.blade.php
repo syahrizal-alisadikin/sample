@@ -11,6 +11,7 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('polished/polished.min.css') }}">
     <link rel="stylesheet" href="{{ asset('polished/iconic/css/open-iconic-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <style>
         .grid-highlight {
             padding-top: 1rem;
@@ -43,8 +44,8 @@
             <span class="oi oi-menu"></span>
         </button>
 
-        <input class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2" type="text" placeholder="Search" aria-label="Search">
-        <div class="dropdown d-none d-md-block">
+        {{-- <input class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2" type="text" placeholder="Search" aria-label="Search"> --}}
+        <div class="dropdown d-none d-md-block ml-auto">
             @if (\Auth::user())
             <button class="btn btn-link btn-link-primary dropdown-toggle" id="navbar-dropdown" data-toggle="dropdown">
                 {{ Auth::user()->name }}
@@ -74,9 +75,15 @@ mb-4" type="text" placeholder="Search" aria-label="Search" />
 
                     
                    
-                    <li>
-                        <a href="{{route('costs.index')}}">
+                    <li class="{{ request()->is('siswa/transaction*') ? 'active' : ''}}">
+                        <a href="{{url('siswa/transaction')}}">
                             <span class="oi oi-dollar"></span> Transaction
+                        </a>
+                    </li>
+
+                    <li class="{{ request()->is('siswa/friend*') ? 'active' : ''}}">
+                        <a href="{{url('siswa/friend')}}">
+                            <span class="oi oi-person"></span> Friend
                         </a>
                     </li>
 
@@ -116,6 +123,8 @@ style="bottom: 0px">
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
     </script>
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    @stack('javascript')
 </body>
 
 </html>

@@ -19,11 +19,9 @@
             border: 1px solid #202e78;
             color: #fff;
         }
-
         hr {
             margin: 6rem 0;
         }
-
         hr+.display-3,
         hr+.display-2+.display-3 {
             margin-bottom: 2rem;
@@ -46,8 +44,8 @@
             <span class="oi oi-menu"></span>
         </button>
 
-        <input class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2" type="text" placeholder="Search" aria-label="Search">
-        <div class="dropdown d-none d-md-block">
+        {{-- <input class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2" type="text" placeholder="Search" aria-label="Search"> --}}
+        <div class="dropdown d-none d-md-block ml-auto">
             @if (\Auth::user())
             <button class="btn btn-link btn-link-primary dropdown-toggle" id="navbar-dropdown" data-toggle="dropdown">
                 {{ Auth::user()->name }}
