@@ -16,9 +16,9 @@ class AddPenyesuaianTableStudents extends Migration
         Schema::table('students', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->after('nisn')->nullable();
             $table->unsignedBigInteger('room_id')->after('user_id')->nullable();
-            $table->unsignedBigInteger('school_years_id')->after('room_id')->nullable();
+            $table->unsignedBigInteger('school_year_id')->after('room_id')->nullable();
 
-            $table->foreign('school_years_id')->references('id')->on('school_years')->onDelete('cascade');
+            $table->foreign('school_year_id')->references('id')->on('school_years')->onDelete('cascade');
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
