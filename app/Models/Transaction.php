@@ -19,4 +19,9 @@ class Transaction extends Model
         'status',
         'tanggal_bayar',
     ];
+
+    public function cost()
+    {
+        return $this->belongsTo(Cost::class);
+    }
 }

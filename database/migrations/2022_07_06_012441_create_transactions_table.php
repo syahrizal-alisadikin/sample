@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->integer('nominal');
             $table->unsignedBigInteger('student_id')->nullable();
-            $table->unsignedBigInteger('midtran_id')->nullable();
+            $table->string('midtran_id')->nullable();
             $table->unsignedBigInteger('cost_id')->nullable();
             $table->enum('jenis_pembayaran', ["OFFLINE", "ONLINE"])->default("OFFLINE");
             $table->enum('status', ["PENDING", "SUCCESS", "FAILED"])->default("PENDING");

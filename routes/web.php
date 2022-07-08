@@ -11,6 +11,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\CostController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\Student\DashboardController;
+use App\Http\Controllers\Student\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,7 +60,10 @@ Route::prefix('admin')
 Route::prefix('siswa')
     ->middleware('IsSiswa')
     ->group(function () {
-        Route::get('/', function () {
-            return "Ini halaman Siswa";
-        });
+        Route::get('/', [DashboardController::class, 'index'])->name('student.dashboard.index');
+        Route::get('/friend', [DashboardController::class, 'friend'])->name('friend.index');
+        Route::get('/transaction', [TransactionController::class, 'index'])->name('siswa.transaction.index');
+        Route::get('/transaction/create', [TransactionController::class, 'create']);
+        Route::get('/transaction/get-nominal/{id}', [TransactionController::class, 'nominal']);
+        Route::post('/transaction/store', [TransactionController::class, 'store']);
     });

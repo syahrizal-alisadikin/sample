@@ -55,11 +55,7 @@ class MidtransController extends Controller
 
         // Kirimkan email
         if ($transaction) {
-            $email = $transaction->peserta->user->email;
-            Mail::send('email.bayar-kelas', array('order' => $transaction), function ($pesan) use ($email) {
-                $pesan->to($email)->subject('Transaksi Membeli Kelas Apache Surf Club');
-                $pesan->from(env('agung.tanjung0404@gmail.com', 'agung.tanjung0404@gmail.com'), 'Apache Surf Club');
-            });
+
             return response()->json([
                 'meta' => [
                     'code' => 200,
