@@ -76,18 +76,13 @@ mb-4" type="text" placeholder="Search" aria-label="Search" />
                     <h6 class="m-2">Data Master</h6>
 
                     <li>
-                        <a href="#">
-                            <span class="oi oi-person"></span>Siswa
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{route('rooms.index')}}">
                             <span class="oi oi-tag"></span>Kelas
                         </a>
                     </li>
                     <li>
                         <a href="{{route('students.index')}}">
-                            <span class="oi oi-tag"></span>Student
+                            <span class="oi oi-people"></span>Siswa
                         </a>
                     </li>
                     <li>
