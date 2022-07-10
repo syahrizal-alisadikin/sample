@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
-use App\Models\SchoolYear;
+use App\Models\User;
 use App\Models\Student;
+use App\Models\SchoolYear;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -17,10 +19,10 @@ class StudentController extends Controller
     public function index(Request $request)
     {
 
-        $students = Student::with('room')->paginate(10);
-        // dd($students);
+        $students = Student::with('room', 'years')->paginate(10);
 
 
+        //dd($students);
         return view('students.index', \compact('students'));
     }
 
@@ -32,11 +34,13 @@ class StudentController extends Controller
      */
     public function create()
     {
-
-        $kelas = Room::get();
-        $tahun = SchoolYear::get();
+        $school_years = SchoolYear::all();
+        $rooms = Room::all();
+        return view('students.create', compact('school_years', 'rooms'));
+        // $kelas = Room::get();
+        // $tahun = SchoolYear::get();
         //dd($kelas);
-        return view('students.create', \compact('kelas', 'tahun'));
+        //return view('students.create', \compact('kelas', 'tahun'));
 
         // return view('students.create', \compact('tahun'));
         // dd($tahun);
@@ -50,19 +54,49 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $students = Student::create([
+        // $students = Student::create([
+        //     'name' => $request->name,
+        //     'nisn' => $request->nisn,
+        //     'address' => $request->address,
+        //     'gender' => $request->gender,
+        //     'room_id' => $request->room_id,
+        //     'school_year_id' => $request->school_year_id,
+        //     'created_by' => auth()->user()->id,
+        // ]);
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'nisn' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'room_id' => ['required', 'integer'],
+            'school_year_id' => ['required', 'integer'],
+            'gender' => ["required"],
+            'address' => ["required"]
+        ]);
+
+        $user = User::create([
             'name' => $request->name,
+            'username' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'roles' => "SISWA",
+        ]);
+
+        $student = Student::create([
+            'user_id' => $user->id,
+            'name' => $user->name,
             'nisn' => $request->nisn,
-            'address' => $request->address,
-            'gender' => $request->gender,
             'room_id' => $request->room_id,
             'school_year_id' => $request->school_year_id,
-            'created_by' => auth()->user()->id,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'created_by' => auth()->user()->id
+
         ]);
 
         return redirect()->route('students.create')->with(
             'status',
-            'Data Kelas berhasil ditambah'
+            'Data Siswa berhasil ditambah'
         );
     }
 
@@ -85,9 +119,13 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $school_years = SchoolYear::all();
+        $rooms = Room::all();
+        $student = \App\Models\Student::findOrFail($id);
+        $user = \App\Models\User::findOrFail($id);
+        return view('students.edit', compact('school_years', 'rooms', 'student', 'user'));
+        //return view('students.edit', ['student' => $student_edit]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -97,8 +135,90 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'nisn' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'max:255'],
+            'room_id' => ['required', 'integer'],
+            'school_year_id' => ['required', 'integer'],
+            'gender' => ["required"],
+            'address' => ["required"],
+            'status' => ["required"]
+
+        ]);
+        $student = Student::findOrFail($id);
+        $user = User::find($student->user_id);
+        if ($request->input('password') == "") {
+            $user->update([
+                'nisn'          => $request->input('nisn'),
+                'name'          => $request->input('name'),
+                'email'         => $request->input('email'),
+                'room_id'      => $request->input('room_id'),
+                'school_year_id'      => $request->input('school_year_id'),
+                'status'        => $request->input('status'),
+                'gender' => $request->input('gender'),
+                'address'        => $request->input('address'),
+
+            ]);
+        } else {
+            $user->update([
+                'nisn'          => $request->input('nisn'),
+                'name'          => $request->input('name'),
+                'email'         => $request->input('email'),
+                'room_id'         => $request->input('room_id'),
+                'school_year_id'      => $request->input('school_year_id'),
+                'status'        => $request->input('status'),
+                'gender' => $request->input('gender'),
+                'address'        => $request->input('address'),
+                'password'      => bcrypt($request->input('password'))
+            ]);
+        }
+        return redirect()->route('students.edit', [$id])->with('status', 'Data Siswa berhasil Diubah');
     }
+    // $student = \App\Models\Student::findOrFail($id);
+    // $student->name = $request->get('name');
+
+    // $student->save();
+    // $this->validate($request, [
+    //     'name' => ['required', 'string', 'max:255'],
+    //     'nisn' => ['required', 'string', 'max:255'],
+    //     'email' => ['required', 'string', 'max:255', 'unique:users'],
+    //     'room_id' => ['required', 'integer'],
+    //     'school_year_id' => ['required', 'integer'],
+    //     'gender' => ["required"],
+    //     'address' => ["required"],
+    //     'status' => ["required"]
+
+    // ]);
+    // $student = Student::findOrFail($student->id);
+
+    // if ($request->input('password') == "") {
+    //     $student->update([
+    //         'nisn'          => $request->input('nisn'),
+    //         'name'          => $request->input('name'),
+    //         'email'         => $request->input('email'),
+    //         'room_id'      => $request->input('room_id'),
+    //         'school_year_id'      => $request->input('school_year_id'),
+    //         'status'        => $request->input('status'),
+    //         'gender' => $request->input('gender'),
+    //         'address'        => $request->input('address'),
+
+    //     ]);
+    // } else {
+    //     $student->update([
+    //         'nisn'          => $request->input('nisn'),
+    //         'name'          => $request->input('name'),
+    //         'email'         => $request->input('email'),
+    //         'room_id'         => $request->input('room_id'),
+    //         'school_year_id'      => $request->input('school_year_id'),
+    //         'status'        => $request->input('status'),
+    //         'gender' => $request->input('gender'),
+    //         'address'        => $request->input('address'),
+    //         'password'      => bcrypt($request->input('password'))
+    //     ]);
+
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -108,6 +228,9 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student = \App\Models\Student::findOrFail($id);
+        User::find($student->user_id)->delete();
+        $student->delete();
+        return redirect()->route('students.index')->with('status', 'Data Siswa berhasil Dihapus');
     }
 }

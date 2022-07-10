@@ -99,7 +99,7 @@ class RegisterController extends Controller
             'name' => $user->name,
             'nisn' => $request->nisn,
             'room_id' => $request->room_id,
-            'school_years_id' => $request->school_year_id,
+            'school_year_id' => $request->school_year_id,
             'gender' => $request->gender,
             'address' => $request->address,
             'created_by' => 0

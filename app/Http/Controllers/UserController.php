@@ -53,7 +53,7 @@ class UserController extends Controller
 
         $new_user->name = $request->get('name');
         $new_user->username = $request->get('username');
-        $new_user->roles = \json_encode($request->get('roles'));
+        $new_user->roles = $request->get('roles'); //\json_encode($request->get('roles'));
         $new_user->email = $request->get('email');
         $new_user->password = Hash::make($request->get('password'));
 
@@ -100,7 +100,7 @@ class UserController extends Controller
         $user = \App\Models\User::findOrFail($id);
         $user->name = $request->get('name');
         $user->status = $request->get('status');
-        $user->roles = json_encode($request->get('roles'));
+        $user->roles = $request->get('roles'); //json_encode($request->get('roles'));
         if ($request->file('avatar')) {
             if ($user->avatar && file_exists(storage_path('app/public/' . $user->avatar))) {
                 Storage::delete('public/' . $user->avatar);
