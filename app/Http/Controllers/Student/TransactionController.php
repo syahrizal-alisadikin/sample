@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Exports\TransactionExport;
 use App\Http\Controllers\Controller;
 use App\Models\Cost;
 use App\Models\Transaction;
@@ -13,15 +14,29 @@ use Exception;
 use Midtrans\Snap;
 use Midtrans\Config;
 
+use PDF;
+use Maatwebsite\Excel\Facades\Excel;
+
 class TransactionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (request()->ajax()) {
-            $transactions = Transaction::where('student_id', Auth::user()->student->id)->with('cost');
+            $transactions = Transaction::where('student_id', Auth::user()->student->id);
 
+            if (!empty($request->start) && !empty($request->end)) {
+                $transactions->whereBetween('tanggal_bayar', [$request->start, $request->end]);
+            }
+            $transactions->with('cost')->latest()->get();
             return DataTables::of($transactions)
-                ->make();
+                ->addIndexColumn()
+
+                ->editColumn('tanggal_bayar', function ($transaction) {
+                    return $transaction->tanggal_bayar ?? "-";
+                })
+                ->rawColumns(['tanggal_bayar'])
+
+                ->make(true);
         }
         return view('pages.transaction.index');
     }
@@ -43,7 +58,6 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
-
         // Create Transaction 
         $transaction = Transaction::create([
             'student_id' => Auth::user()->student->id,
@@ -89,5 +103,24 @@ class TransactionController extends Controller
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+    }
+
+    public function downloadPDF(Request $request)
+    {
+        $transactions = Transaction::where('student_id', Auth::user()->student->id)
+            ->whereBetween('tanggal_bayar', [$request->start, $request->end])
+            ->with('cost')->latest()->get();
+
+        $pdf = PDF::loadView('pages.transaction.pdf', compact('transactions'));
+        return $pdf->download('transaction.pdf');
+    }
+
+    public function downloadEXCEL(Request $request)
+    {
+        $transactions = Transaction::where('student_id', Auth::user()->student->id)
+            ->whereBetween('tanggal_bayar', [$request->start, $request->end])
+            ->with('cost')->latest()->get();
+
+        return Excel::download(new TransactionExport($transactions), 'transaction.xlsx');
     }
 }
