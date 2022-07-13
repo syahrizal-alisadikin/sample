@@ -70,4 +70,6 @@ Route::prefix('siswa')
         Route::get('/transaction/create', [TransactionController::class, 'create']);
         Route::get('/transaction/get-nominal/{id}', [TransactionController::class, 'nominal']);
         Route::post('/transaction/store', [TransactionController::class, 'store']);
+        Route::get('/transaction/downloadPDF', [TransactionController::class, 'downloadPDF'])->name('transaction.downloadPDF');
+        Route::get('/transaction/downloadEXCEL', [TransactionController::class, 'downloadEXCEL'])->name('transaction.downloadEXCEL');
     });
