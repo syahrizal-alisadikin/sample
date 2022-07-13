@@ -135,88 +135,44 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'nisn' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255'],
-            'room_id' => ['required', 'integer'],
-            'school_year_id' => ['required', 'integer'],
-            'gender' => ["required"],
-            'address' => ["required"],
-            'status' => ["required"]
+        // $this->validate($request, [
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'nisn' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'max:255'],
+        //     'room_id' => ['required', 'integer'],
+        //     'school_year_id' => ['required', 'integer'],
+        //     'gender' => ["required"],
+        //     'address' => ["required"],
+        //     'status' => ["required"]
 
-        ]);
-        $student = Student::findOrFail($id);
-        $user = User::find($student->user_id);
-        if ($request->input('password') == "") {
-            $user->update([
-                'nisn'          => $request->input('nisn'),
-                'name'          => $request->input('name'),
-                'email'         => $request->input('email'),
-                'room_id'      => $request->input('room_id'),
-                'school_year_id'      => $request->input('school_year_id'),
-                'status'        => $request->input('status'),
-                'gender' => $request->input('gender'),
-                'address'        => $request->input('address'),
-
-            ]);
-        } else {
-            $user->update([
-                'nisn'          => $request->input('nisn'),
-                'name'          => $request->input('name'),
-                'email'         => $request->input('email'),
-                'room_id'         => $request->input('room_id'),
-                'school_year_id'      => $request->input('school_year_id'),
-                'status'        => $request->input('status'),
-                'gender' => $request->input('gender'),
-                'address'        => $request->input('address'),
-                'password'      => bcrypt($request->input('password'))
-            ]);
-        }
-        return redirect()->route('students.edit', [$id])->with('status', 'Data Siswa berhasil Diubah');
+        // ]);
+        // $student = Student::findOrFail($id);
+        // $user = User::find($student->user_id);
+        // if ($request->input('password') == "") {
+        //     $user->update([
+        //         'name'          => $request->input('name'),
+        //         'username'          => $request->input('username'),
+        //         'email'         => $request->input('email'),
+        //     ]);
+        // } else {
+        //     $user->update([
+        //         'name'          => $request->input('name'),
+        //         'username'          => $request->input('username'),
+        //         'email'         => $request->input('email'),
+        //         'password'      => bcrypt($request->input('password'))
+        //     ]);
+        // }
+        // $student->name = $request->input('name');
+        // $student->nisn = $request->input('nisn');
+        // $student->room_id = $request->input('room_id');
+        // $student->school_year_id = $request->input('school_year_id');
+        // $student->gender = $request->input('gender');
+        // $student->address = $request->input('address');
+        // $student->status = $request->input('status');
+        // $student->created_by = $request->input('created_by');
+        // $student->save();
+        // return redirect()->route('students.edit', [$id])->with('status', 'Data Siswa berhasil Diubah');
     }
-    // $student = \App\Models\Student::findOrFail($id);
-    // $student->name = $request->get('name');
-
-    // $student->save();
-    // $this->validate($request, [
-    //     'name' => ['required', 'string', 'max:255'],
-    //     'nisn' => ['required', 'string', 'max:255'],
-    //     'email' => ['required', 'string', 'max:255', 'unique:users'],
-    //     'room_id' => ['required', 'integer'],
-    //     'school_year_id' => ['required', 'integer'],
-    //     'gender' => ["required"],
-    //     'address' => ["required"],
-    //     'status' => ["required"]
-
-    // ]);
-    // $student = Student::findOrFail($student->id);
-
-    // if ($request->input('password') == "") {
-    //     $student->update([
-    //         'nisn'          => $request->input('nisn'),
-    //         'name'          => $request->input('name'),
-    //         'email'         => $request->input('email'),
-    //         'room_id'      => $request->input('room_id'),
-    //         'school_year_id'      => $request->input('school_year_id'),
-    //         'status'        => $request->input('status'),
-    //         'gender' => $request->input('gender'),
-    //         'address'        => $request->input('address'),
-
-    //     ]);
-    // } else {
-    //     $student->update([
-    //         'nisn'          => $request->input('nisn'),
-    //         'name'          => $request->input('name'),
-    //         'email'         => $request->input('email'),
-    //         'room_id'         => $request->input('room_id'),
-    //         'school_year_id'      => $request->input('school_year_id'),
-    //         'status'        => $request->input('status'),
-    //         'gender' => $request->input('gender'),
-    //         'address'        => $request->input('address'),
-    //         'password'      => bcrypt($request->input('password'))
-    //     ]);
-
 
 
 

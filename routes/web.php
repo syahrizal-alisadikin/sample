@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\CostController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TransactionOfflineController;
 use App\Http\Controllers\Student\DashboardController;
 use App\Http\Controllers\Student\TransactionController;
 
@@ -55,6 +56,9 @@ Route::prefix('admin')
         Route::resource('costs', CostController::class);
 
         Route::resource('students', StudentController::class);
+
+        Route::resource('transaction-offlines', TransactionOfflineController::class);
+        Route::get('/transaction-offlines/get-nominal/{id}', [TransactionOfflineController::class, 'nominal']);
     });
 
 Route::prefix('siswa')

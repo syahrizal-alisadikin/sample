@@ -14,6 +14,7 @@
         <a href="{{route('students.create')}}" class="btn btn-info">Tambah</a>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12">
         <table id="example" class="table table-bordered table-stripped">
@@ -58,4 +59,5 @@
         </table>
     </div>
 </div>
+
 @endsection

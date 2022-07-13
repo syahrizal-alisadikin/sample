@@ -19,9 +19,11 @@
             border: 1px solid #202e78;
             color: #fff;
         }
+
         hr {
             margin: 6rem 0;
         }
+
         hr+.display-3,
         hr+.display-2+.display-3 {
             margin-bottom: 2rem;
@@ -93,10 +95,14 @@ mb-4" type="text" placeholder="Search" aria-label="Search" />
                             <span class="oi oi-dollar"></span> Biaya
                         </a>
                     </li>
-
+                    <li>
+                        <a href="{{route('transaction-offlines.index')}}">
+                            <span class="oi oi-credit-card"></span>Pembayaran
+                        </a>
+                    </li>
                     <li>
                         <a href="{{route('users.index')}}">
-                            <span class="oi oi-person"></span>Staff / Admin
+                            <span class="oi oi-person"></span>Staff/Admin
                         </a>
                     </li>
                     <div class="d-block d-md-none">

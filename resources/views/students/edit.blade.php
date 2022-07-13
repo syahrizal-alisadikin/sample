@@ -80,7 +80,7 @@
 
         @enderror
         <br>
-        <label for="">Status Siswa</label>
+        <label for="">Status</label>
         <br />
         <input {{$student->user->status == "ACTIVE" ? "checked" : ""}} value="ACTIVE" type="radio" class="form-control" id="active" name="status">
         <label for="active">Active</label>
