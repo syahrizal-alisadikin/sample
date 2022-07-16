@@ -79,14 +79,14 @@
         </div>
 
         @enderror
-        <br>
+        <!-- <br>
         <label for="">Status</label>
         <br />
         <input {{$student->user->status == "ACTIVE" ? "checked" : ""}} value="ACTIVE" type="radio" class="form-control" id="active" name="status">
         <label for="active">Active</label>
         <input {{$student->user->status == "INACTIVE" ? "checked" : ""}} value="INACTIVE" type="radio" class="form-control" id="inactive" name="status">
-        <label for="inactive">Inactive</label>
-        <br><br>
+        <label for="inactive">Inactive</label> -->
+        <br>
         <input class=" btn btn-success" type="submit" value="Simpan" />
     </form>
 </div>

@@ -58,7 +58,12 @@ Route::prefix('admin')
         Route::resource('students', StudentController::class);
 
         Route::resource('transaction-offlines', TransactionOfflineController::class);
-        Route::get('/transaction-offlines/get-nominal/{id}', [TransactionOfflineController::class, 'nominal']);
+
+        Route::get('/transaction-offlines/nominal/{id}', [TransactionOfflineController::class, 'nominal1']);
+
+        Route::get('/transaction-offlines/downloadPDF', [TransactionOfflineController::class, 'downloadPDF1'])->name('transactionofflines.downloadPDF1');
+
+        Route::get('/transaction-offlines/downloadEXCEL', [TransactionOfflineController::class, 'downloadEXCEL1'])->name('transactionofflines.downloadEXCEL1');
     });
 
 Route::prefix('siswa')

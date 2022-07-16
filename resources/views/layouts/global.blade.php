@@ -153,6 +153,7 @@ style="bottom: 0px">
             $('#example').DataTable();
         });
     </script>
+    @stack('javascript')
 </body>
 
 </html>

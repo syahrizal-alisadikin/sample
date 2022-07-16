@@ -9,20 +9,20 @@
     @endif
     <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{route('transaction-offlines.store')}}" method="POST">
         @csrf
-        <div class="card-body">
+        <!-- <div class="card-body">
             <label class="form-label">Pilih</label>
             <select name="select" class="form-control" onchange="myTransaction()" required id="select">
                 <option value="siswa">Per Siswa</option>
                 <option value="kelas" @error('room_id') selected @enderror>Per Kelas</option>
             </select>
-        </div>
+        </div> -->
 
         <div class="card-body" id="student" @error('room_id') style="display: none" @enderror>
             <label>Nama Siswa</label>
             <select name="student_id" class="form-control">
                 <option value="">Pilih Siswa</option>
                 @foreach ($student as $s)
-                <option value="{{ $s->id }}">{{ $s->name }}</option>
+                <option value="{{ $s->id }}">{{ $s->name }} - {{ $s->nisn }}</option>
                 @endforeach
             </select>
             @error('student_id')
@@ -33,7 +33,7 @@
 
         </div>
 
-        <div class="card_body" id="kelas" @error('kelas_id') style="display: block !important" @else style="display: none" @enderror>
+        <!-- <div class="card_body" id="kelas" @error('kelas_id') style="display: block !important" @else style="display: none" @enderror>
             <label>KELAS</label>
             <select name="room_id" class="form-control ">
                 <option value="">Pilih Kelas</option>
@@ -46,10 +46,10 @@
         <div class="invalid-feedback" style="display: block">
             {{ $message }}
         </div>
-        @enderror
+        @enderror -->
         <div class="card-body">
             <label>Nama Pembayaran</label>
-            <select name="cost_id" class="form-control cost_id" id="cost_id">
+            <select name="cost_id" class="form-control" required id="cost_id">
                 <option value="">Pilih Pembayaran</option>
                 @foreach ($cost as $t)
                 <option value="{{ $t->id }}">{{ $t->name }}</option>
@@ -64,7 +64,7 @@
 
         <div class="card-body">
             <label>Nominal</label><br>
-            <input type="text" class="form-control" name="nominal" value="0" id="nominal" readonly />
+            <input type="text" class="form-control" name="nominal" value="0" id="nominal1" readonly />
         </div>
 
         <div class="card-body">
@@ -88,16 +88,16 @@
         var cost_id = $("#cost_id").val();
         if (cost_id != "") {
             $.ajax({
-                url: "{{url('siswa/transaction/get-nominal')}}/" + cost_id,
+                url: "{{url('admin/transaction-offlines/nominal')}}/" + cost_id,
                 type: "GET",
                 dataType: "json",
                 success: function(data) {
                     console.log(data);
-                    $("#nominal").val(data.nominal);
+                    $("#nominal1").val(data.nominal1);
                 }
             });
         } else {
-            $("#nominal").val("0");
+            $("#nominal1").val("0");
         }
     });
 </script>
