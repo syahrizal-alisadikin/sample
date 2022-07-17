@@ -31,7 +31,7 @@
 
 <div class="row">
     <div class="col-md-12 text-right mb-3">
-        <a href="{{url('transaction-offlines/create')}}" class="btn btn-info">Tambah</a>
+        <a href="{{route('transaction-offlines.create')}}" class="btn btn-info">Tambah</a>
     </div>
 </div>
 
@@ -39,6 +39,8 @@
     <thead>
         <tr>
             <th><b>No</b></th>
+            <th><b>Nama</b></th>
+            <th><b>Kelas</b></th>
             <th><b>Nominal</b></th>
             <th><b>Nama Pembayaran</b></th>
             <th><b>Jenis Pembayaran</b></th>
@@ -78,6 +80,14 @@
                 searchable: false
             },
             {
+                data: 'nama',
+                name: 'student.name'
+            },
+            {
+                data: 'kelas',
+                name: 'student.room.name'
+            },
+            {
                 data: 'nominal',
                 name: 'nominal'
             },
@@ -102,17 +112,13 @@
     })
 
 
-
     // Download PDF
     $("#downloadPDF1").on('click', function(e) {
-        $('#form-download').attr('action', '{{
-			route('transactionofflines.downloadPDF1')}}');
+        $('#form-download').attr('action', 'url: "{{url('admin/transaction-offlines/downloadPDF')}}"');
         document.getElementById('form-download').submit();
     });
-    // Download EXCEL
     $("#downloadEXCEL1").on('click', function(e) {
-        $('#form-download').attr('action', '{{
-			route('transactionofflines.downloadEXCEL1')}}');
+        $('#form-download').attr('action', 'url: "{{url('admin/transaction-offlines/downloadEXCEL')}}"');
         document.getElementById('form-download').submit();
     });
 </script>
