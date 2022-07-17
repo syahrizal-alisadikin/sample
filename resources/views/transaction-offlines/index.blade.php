@@ -105,14 +105,14 @@
 
     // Download PDF
     $("#downloadPDF1").on('click', function(e) {
-        $('#form-download').attr('action', '{{route('
-            transactionofflines.downloadPDF1 ')}}');
+        $('#form-download').attr('action', '{{
+			route('transactionofflines.downloadPDF1')}}');
         document.getElementById('form-download').submit();
     });
     // Download EXCEL
     $("#downloadEXCEL1").on('click', function(e) {
-        $('#form-download').attr('action', '{{route('
-            transactionofflines.downloadEXCEL1 ')}}');
+        $('#form-download').attr('action', '{{
+			route('transactionofflines.downloadEXCEL1')}}');
         document.getElementById('form-download').submit();
     });
 </script>
