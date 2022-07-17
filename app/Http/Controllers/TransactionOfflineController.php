@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use App\Exports\TransactionExport;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Yajra\DataTables\Facades\DataTables;
 
 use Exception;
@@ -18,6 +20,7 @@ use Midtrans\Config;
 
 use PDF;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf as WriterPdf;
 
 class TransactionOfflineController extends Controller
 {
@@ -26,16 +29,17 @@ class TransactionOfflineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
 
     {
         if (request()->ajax()) {
-            $transactions = Transaction::where('student_id', Auth::user()->student->id);
+
+            $transactions = Transaction::query();
 
             if (!empty($request->start) && !empty($request->end)) {
                 $transactions->whereBetween('tanggal_bayar', [$request->start, $request->end]);
             }
-            $transactions->with('cost')->latest()->get();
+            $transactions->with('cost', 'student.room')->latest()->get();
             return DataTables::of($transactions)
                 ->addIndexColumn()
 
@@ -130,5 +134,24 @@ class TransactionOfflineController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function downloadPDF1(Request $request)
+    {
+        $transactions = Transaction::query()
+            ->whereBetween('tanggal_bayar', [$request->start, $request->end])
+            ->with('cost')->latest()->get();
+
+        $pdf = PDF::loadView('pages.transaction.pdf', compact('transactions'));
+        return $pdf->download('transaction.pdf');
+    }
+
+    public function downloadEXCEL1(Request $request)
+    {
+        $transactions = Transaction::query()
+            ->whereBetween('tanggal_bayar', [$request->start, $request->end])
+            ->with('cost')->latest()->get();
+
+        return Excel::download(new TransactionExport($transactions), 'transaction.xlsx');
     }
 }
