@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="{{ asset('polished/iconic/css/open-iconic-bootstrap.min.css') }}">
 
     <!-- Scripts -->
-   
-    <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <style>
         .grid-highlight {
             padding-top: 1rem;
@@ -55,8 +55,8 @@
             </button>
             @endif
             <div class="dropdown-menu dropdown-menu-right" id="navbar-dropdown">
-                <a href="#" class="dropdown-item">Profile</a>
-                <a href="#" class="dropdown-item">Setting</a>
+                <!-- <a href="#" class="dropdown-item">Profile</a>
+                <a href="#" class="dropdown-item">Setting</a> -->
                 <div class="dropdown-divider"></div>
                 <li>
                     <form action="{{ route('logout') }}" method="POST">
@@ -71,29 +71,29 @@
         <div style="min-height: 100%" class="flex-row d-flex align-items-stretch m-0">
             <div class="polished-sidebar bg-light col-12 col-md-3 col-lg-2 p-0 collapse d-md-inline" id="sidebar-nav">
                 <ul class="polished-sidebar-menu ml-0 pt-4 p-0 d-md-block">
-                    <input class="border-dark form-control d-block d-md-none
-mb-4" type="text" placeholder="Search" aria-label="Search" />
+                    <!-- <input class="border-dark form-control d-block d-md-none
+mb-4" type="text" placeholder="Search" aria-label="Search" /> -->
                     <li><a href="{{ url('/siswa') }}"><span class="oi oi-home"></span>Beranda</a></li>
                     <h6 class="m-2">Data Master</h6>
 
-                    
-                   
+
+
                     <li class="{{ request()->is('siswa/transaction*') ? 'active' : ''}}">
                         <a href="{{url('siswa/transaction')}}">
-                            <span class="oi oi-dollar"></span> Transaction
+                            <span class="oi oi-credit-card"></span> Pembayaran
                         </a>
                     </li>
 
                     <li class="{{ request()->is('siswa/friend*') ? 'active' : ''}}">
                         <a href="{{url('siswa/friend')}}">
-                            <span class="oi oi-person"></span> Friend
+                            <span class="oi oi-person"></span> Teman
                         </a>
                     </li>
 
                     <div class="d-block d-md-none">
                         <div class="dropdown-divider"></div>
-                        <li><a href="#"> Profile</a></li>
-                        <li><a href="#"> Setting</a></li>
+                        <!-- <li><a href="#"> Profile</a></li>
+                        <li><a href="#"> Setting</a></li> -->
                         <li>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -126,8 +126,8 @@ style="bottom: 0px">
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
     </script>
-     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     @stack('javascript')
 </body>
 

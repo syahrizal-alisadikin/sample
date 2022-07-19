@@ -10,7 +10,7 @@
     <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{route('rooms.store')}}" method="POST">
         @csrf
         <label>Nama Kelas</label><br>
-        <input type="text" class="form-control" name="name" />
+        <input type="text" class="form-control" name="name" required />
         <br>
         <label>Keterangan</label><br>
         <input type="text" class="form-control" name="description" placeholder="Isi jika perlu" />

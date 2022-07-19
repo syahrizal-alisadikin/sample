@@ -1,5 +1,5 @@
 @extends("layouts.student")
-@section("title") Tambah Data Transaction  @endsection
+@section("title") Tambah Data Pembayaran @endsection
 @section("content")
 <div class="col-md-8">
     @if(session('status'))
@@ -9,9 +9,9 @@
     @endif
     <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{url('siswa/transaction/store')}}" method="POST">
         @csrf
-        <label for="">Transaction</label> <br>
+        <label for="">Pembayaran</label> <br>
         <select name="cost_id" class="form-control" required id="cost_id">
-            <option value="">Pilih Transaction</option>
+            <option value="">Pilih Pembayaran</option>
             @foreach($costs as $cost)
             <option value="{{$cost->id}}">{{$cost->name }} </option>
             @endforeach
@@ -25,7 +25,7 @@
             <option value="OFFLINE">OFFLINE</option>
             <option value="ONLINE">ONLINE</option>
         </select> <br>
-        
+
         <input type="submit" class="btn btn-success" value="Bayar" />
     </form>
 </div>
@@ -34,22 +34,22 @@
 
 @push('javascript')
 <script>
-   $("#cost_id").change(function(){
-    var cost_id = $("#cost_id").val();
-    if(cost_id != ""){
-        $.ajax({
-        url: "{{url('siswa/transaction/get-nominal')}}/"+cost_id,
-        type: "GET",
-        dataType: "json",
-        success: function(data){
-            console.log(data);
-            $("#nominal").val(data.nominal);
+    $("#cost_id").change(function() {
+        var cost_id = $("#cost_id").val();
+        if (cost_id != "") {
+            $.ajax({
+                url: "{{url('siswa/transaction/get-nominal')}}/" + cost_id,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    $("#nominal").val(data.nominal);
+                }
+            });
+        } else {
+            $("#nominal").val("0");
         }
-    });
-    }else{
-        $("#nominal").val("0");
-    }
 
-   });
-  </script>
+    });
+</script>
 @endpush

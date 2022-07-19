@@ -35,7 +35,7 @@
             <th><b>Status</b></th>
             <th><b>Avatar</b></th>
             <th><b>Role</b></th>
-            <th><b>Action</b></th>
+            <th><b>Actions</b></th>
         </tr>
     </thead>
     <tbody>

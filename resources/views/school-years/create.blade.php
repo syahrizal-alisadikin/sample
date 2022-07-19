@@ -10,7 +10,7 @@
     <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{route('school-years.store')}}" method="POST">
         @csrf
         <label>Tahun</label><br>
-        <input type="text" class="form-control" name="year" />
+        <input type="text" class="form-control" name="year" required />
         <br>
         <label>Keterangan</label><br>
         <input type="text" class="form-control" name="description" placeholder="Isi jika perlu" />

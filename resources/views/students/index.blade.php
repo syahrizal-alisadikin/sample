@@ -20,6 +20,7 @@
         <table id="example" class="table table-bordered table-stripped">
             <thead>
                 <tr>
+                    <th><b>No</b></th>
                     <th><b>NISN</b></th>
                     <th><b>Nama</b></th>
                     <th><b>Alamat</b></th>
@@ -30,8 +31,10 @@
                 </tr>
             </thead>
             <tbody>
+                @php $no = 1; @endphp
                 @foreach ($students as $row)
                 <tr>
+                    <td>{{$no++}}</td>
                     <td>{{$row->nisn}}</td>
                     <td>{{$row->name}}</td>
                     <td>{{$row->address}}</td>

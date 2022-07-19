@@ -56,8 +56,8 @@
             </button>
             @endif
             <div class="dropdown-menu dropdown-menu-right" id="navbar-dropdown">
-                <a href="#" class="dropdown-item">Profile</a>
-                <a href="#" class="dropdown-item">Setting</a>
+                <!-- <a href="#" class="dropdown-item">Profile</a>
+                <a href="#" class="dropdown-item">Setting</a> -->
                 <div class="dropdown-divider"></div>
                 <li>
                     <form action="{{ route('logout') }}" method="POST">
@@ -72,11 +72,11 @@
         <div style="min-height: 100%" class="flex-row d-flex align-items-stretch m-0">
             <div class="polished-sidebar bg-light col-12 col-md-3 col-lg-2 p-0 collapse d-md-inline" id="sidebar-nav">
                 <ul class="polished-sidebar-menu ml-0 pt-4 p-0 d-md-block">
-                    <input class="border-dark form-control d-block d-md-none
-mb-4" type="text" placeholder="Search" aria-label="Search" />
+                    <!-- <input class="border-dark form-control d-block d-md-none
+mb-4" type="text" placeholder="Search" aria-label="Search" /> -->
                     <li><a href="{{ url('/admin') }}"><span class="oi oi-home"></span>Beranda</a></li>
                     <h6 class="m-2">Data Master</h6>
-
+                    @if(Auth::user()->roles == "STAFF")
                     <li>
                         <a href="{{route('rooms.index')}}">
                             <span class="oi oi-tag"></span>Kelas
@@ -102,15 +102,18 @@ mb-4" type="text" placeholder="Search" aria-label="Search" />
                             <span class="oi oi-credit-card"></span>Pembayaran
                         </a>
                     </li>
+                    @endif
+                    @if(Auth::user()->roles == "ADMIN")
                     <li>
                         <a href="{{route('users.index')}}">
                             <span class="oi oi-person"></span>Staff/Admin
                         </a>
                     </li>
+                    @endif
                     <div class="d-block d-md-none">
-                        <div class="dropdown-divider"></div>
-                        <li><a href="#"> Profile</a></li>
-                        <li><a href="#"> Setting</a></li>
+
+                        <!-- <li><a href="#"> Profile</a></li>
+                        <li><a href="#"> Setting</a></li> -->
                         <li>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf

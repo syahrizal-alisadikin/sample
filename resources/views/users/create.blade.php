@@ -10,17 +10,17 @@
     <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{route('users.store')}}" method="POST">
         @csrf
         <label for="name">Nama</label>
-        <input class="form-control" placeholder="Nama Lengkap" type="text" name="name" id="name" />
+        <input class="form-control" placeholder="Nama Lengkap" type="text" name="name" id="name" required />
         <br>
         <label for="username">Username</label>
-        <input class="form-control" placeholder="username" type="text" name="username" id="username" />
+        <input class="form-control" placeholder="username" type="text" name="username" id="username" required />
         <br>
 
         <label for="">Role</label>
         <br>
         <input type="radio" name="roles" id="ADMIN" value="ADMIN">
         <label for="ADMIN">Administrator</label>
-        <input type="radio"  name="roles" id="STAFF" value="STAFF">
+        <input type="radio" name="roles" id="STAFF" value="STAFF">
         <label for="STAFF">Staff</label>
         {{-- <input type="radio"  name="roles" id="SISWA" value="SISWA">
         <label for="SISWA">Siswa</label> --}}
@@ -31,10 +31,10 @@
         <input id="avatar" name="avatar" type="file" class="form-control">
         <hr class="my-3">
         <label for="email">Email</label>
-        <input class="form-control" placeholder="user@mail.com" type="text" name="email" id="email" />
+        <input class="form-control" placeholder="user@mail.com" type="text" name="email" id="email" required />
         <br>
         <label for="password">Password</label>
-        <input class="form-control" placeholder="password" type="password" name="password" id="password" />
+        <input class="form-control" placeholder="password" type="password" name="password" id="password" required />
         <br>
         <!-- <label for="password_confirmation">Password Confirmation</label>
         <input class="form-control" placeholder="password confirmation" type="password" name="password_confirmation" id="password_confirmation" /> -->

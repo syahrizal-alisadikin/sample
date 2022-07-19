@@ -1,5 +1,5 @@
 @extends("layouts.student")
-@section("title") Daftar Transaction @endsection
+@section("title") Daftar Pembayaran @endsection
 @section("content")
 
 @if(session('status'))

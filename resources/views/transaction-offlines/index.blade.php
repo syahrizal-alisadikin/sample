@@ -46,6 +46,8 @@
             <th><b>Jenis Pembayaran</b></th>
             <th><b>Status Pembayaran</b></th>
             <th><b>Tanggal Bayar</b></th>
+            <th><b>Actions</b></th>
+            
 
         </tr>
     </thead>
@@ -80,11 +82,11 @@
                 searchable: false
             },
             {
-                data: 'nama',
+                data: 'student.name',
                 name: 'student.name'
             },
             {
-                data: 'kelas',
+                data: 'student.room.name',
                 name: 'student.room.name'
             },
             {
@@ -107,6 +109,10 @@
                 data: 'tanggal_bayar',
                 name: 'tanggal_bayar'
             },
+            {
+                data: 'actions',
+                name: 'actions'
+            },
 
         ]
     })
@@ -114,11 +120,11 @@
 
     // Download PDF
     $("#downloadPDF1").on('click', function(e) {
-        $('#form-download').attr('action', 'url: "{{url('admin/transaction-offlines/downloadPDF')}}"');
+        $('#form-download').attr('action', '{{route('transactionofflines.downloadPDF1')}}');
         document.getElementById('form-download').submit();
     });
     $("#downloadEXCEL1").on('click', function(e) {
-        $('#form-download').attr('action', 'url: "{{url('admin/transaction-offlines/downloadEXCEL')}}"');
+        $('#form-download').attr('action', '{{route('transactionofflines.downloadEXCEL1')}}');
         document.getElementById('form-download').submit();
     });
 </script>

@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cost;
-use App\Models\Room;
-use App\Models\Student;
-use App\Models\Transaction;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-
-use App\Exports\TransactionExport;
-use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
-use Yajra\DataTables\Facades\DataTables;
-
+use PDF;
 use Exception;
 use Midtrans\Snap;
+use App\Models\Cost;
+use App\Models\Room;
 use Midtrans\Config;
 
-use PDF;
+use App\Models\Student;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+
+use Yajra\DataTables\Facades\DataTables;
+use App\Exports\TransactionOfflineExport;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf as WriterPdf;
+
+use Carbon\Carbon;
 
 class TransactionOfflineController extends Controller
 {
@@ -42,11 +44,29 @@ class TransactionOfflineController extends Controller
             $transactions->with('cost', 'student.room')->latest()->get();
             return DataTables::of($transactions)
                 ->addIndexColumn()
-
+                // ->addColumn('actions', function ($transactions) {
+                //     $button = " <a class='btn btn-primary text-white btn-sm' id='".$transactions->id."'>Ubah</a>";
+                //     $button .= " <a class='btn btn-danger text-white btn-sm' id='".$transactions->id."'>Hapus</a>";
+                //     return $button;
+                // })
+                ->addColumn('actions', function ($item) {
+                    return '
+                       
+                                <form action="' . route('transaction-offlines.destroy', $item->id) . '" method="POST">
+                                    ' . method_field('delete') . csrf_field() . '
+                                    <button type="submit" class="btn btn-danger dropdown-item text-white">
+                                    Hapus
+                                    </button>
+                            
+                        
+                        ';
+                })
+                        
+                                
                 ->editColumn('tanggal_bayar', function ($transaction) {
                     return $transaction->tanggal_bayar ?? "-";
                 })
-                ->rawColumns(['tanggal_bayar'])
+                ->rawColumns(['actions'])
 
                 ->make(true);
         }
@@ -88,7 +108,21 @@ class TransactionOfflineController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $transaction = Transaction::create([
+            'student_id' => $request->student_id,
+            'cost_id' => $request->cost_id,
+            'nominal' => $request->nominal,
+            'jenis_pembayaran' => 'OFFLINE',
+            'status' => 'SUCCESS',
+            'tanggal_bayar' => date('Y-m-d')
+
+
+        ]);
+        return redirect()->route('transaction-offlines.create')->with(
+            'status',
+            'Data Pembayaran Siswa berhasil ditambah'
+        );
     }
 
     /**
@@ -110,7 +144,10 @@ class TransactionOfflineController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $cost = Cost::all();
+        // $student = Room::all();
+        // $transaction = \App\Models\Transaction::findOrFail($id);
+        // return \view('transaction-offlines.edit', compact('cost', 'transaction', 'student'));
     }
 
     /**
@@ -133,16 +170,20 @@ class TransactionOfflineController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transaction = \App\Models\Transaction::findOrFail($id);
+        
+        $transaction->delete();
+        return redirect()->route('transaction-offlines.index')->with('status', 'Data Pembayaran berhasil Dihapus');
     }
 
     public function downloadPDF1(Request $request)
     {
         $transactions = Transaction::query()
             ->whereBetween('tanggal_bayar', [$request->start, $request->end])
-            ->with('cost')->latest()->get();
+            ->with('cost', 'student.room')->latest()->get();
 
-        $pdf = PDF::loadView('pages.transaction.pdf', compact('transactions'));
+        $pdf = PDF::loadView('transaction-offlines.pdf', compact('transactions'));
+
         return $pdf->download('transaction.pdf');
     }
 
@@ -150,8 +191,8 @@ class TransactionOfflineController extends Controller
     {
         $transactions = Transaction::query()
             ->whereBetween('tanggal_bayar', [$request->start, $request->end])
-            ->with('cost')->latest()->get();
+            ->with('cost', 'student.room')->latest()->get();
 
-        return Excel::download(new TransactionExport($transactions), 'transaction.xlsx');
+        return Excel::download(new TransactionOfflineExport($transactions), 'transaction.xlsx');
     }
 }

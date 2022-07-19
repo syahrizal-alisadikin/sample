@@ -67,15 +67,17 @@
             <input type="text" class="form-control" name="nominal" value="0" id="nominal1" readonly />
         </div>
 
-        <div class="card-body">
+
+
+        <!-- <div class="card-body">
             <label for="">Jenis Pembayaran</label> <br>
             <select name="jenis_pembayaran" class="form-control" required id="">
                 <option value="">Pilih Pembayaran</option>
                 <option value="OFFLINE">OFFLINE</option>
                 <option value="ONLINE">ONLINE</option>
             </select> <br>
-        </div>
-        <div class="card-body"><input class="btn btn-success" type="submit" value="Simpan" />
+        </div> -->
+        <div class="card-body"><input class="btn btn-success" type="submit" value="Bayar" />
         </div>
 
     </form>

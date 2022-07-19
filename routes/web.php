@@ -61,9 +61,9 @@ Route::prefix('admin')
 
         Route::get('/transaction-offlines/nominal/{id}', [TransactionOfflineController::class, 'nominal1']);
 
-        Route::get('/transaction-offlines/downloadPDF', [TransactionOfflineController::class, 'downloadPDF1'])->name('transactionofflines.downloadPDF1');
+        Route::get('/download-offlines/downloadPDF', [TransactionOfflineController::class, 'downloadPDF1'])->name('transactionofflines.downloadPDF1');
 
-        Route::get('/transaction-offlines/downloadEXCEL', [TransactionOfflineController::class, 'downloadEXCEL1'])->name('transactionofflines.downloadEXCEL1');
+        Route::get('/download-offlines/downloadEXCEL', [TransactionOfflineController::class, 'downloadEXCEL1'])->name('transactionofflines.downloadEXCEL1');
     });
 
 Route::prefix('siswa')

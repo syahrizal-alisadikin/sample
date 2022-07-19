@@ -10,10 +10,10 @@
     <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{route('costs.store')}}" method="POST">
         @csrf
         <label>Nama Biaya</label><br>
-        <input type="text" class="form-control" name="name" />
+        <input type="text" class="form-control" name="name" required />
         <br>
         <label>Nominal</label><br>
-        <input type="number" class="form-control" name="nominal" />
+        <input type="number" class="form-control" name="nominal" required />
         <br>
         <label>Keterangan</label><br>
         <input type="text" class="form-control" name="description" placeholder="Isi jika perlu" />
