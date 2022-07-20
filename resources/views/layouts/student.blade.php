@@ -11,14 +11,7 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('polished/polished.min.css') }}">
     <link rel="stylesheet" href="{{ asset('polished/iconic/css/open-iconic-bootstrap.min.css') }}">
-<<<<<<< HEAD
-
-    <!-- Scripts -->
-
-    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-=======
     <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
->>>>>>> 677c1de (update)
     <style>
         .grid-highlight {
             padding-top: 1rem;

@@ -15,7 +15,7 @@
   <div class="container-fluid">
       <div class="card p-2">
           <h4 class="text-center">Data Pembayaran {{ Auth::user()->name }} </h4>
-          <div class="card-body">
+          <div class="card-body table-responsive">
             <table class="table align-items-center mb-0"  style="width:100%; !important">
                 <thead>
                     <tr>

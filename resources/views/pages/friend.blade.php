@@ -26,20 +26,28 @@
     </div>
 </div>
 
-<table class="table table-bordered" id="friend-table" style="width: 100%">
-    <thead>
-        <tr>
-            <th><b>Nama</b></th>
-            {{-- <th><b>Username</b></th>
-            <th><b>Email</b></th>
-            <th><b>Status</b></th>
-            <th><b>Avatar</b></th>
-            <th><b>Role</b></th>
-            <th><b>Action</b></th> --}}
-        </tr>
-    </thead>
-
-</table>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="friend-table" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th><b>Nama</b></th>
+                                <th><b>Alamat</b></th>
+                                <th><b>Email</b></th>
+                                <th><b>Jenis Kelamin</b></th>
+                                
+                            </tr>
+                        </thead>
+                    
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 
@@ -53,7 +61,10 @@
           url: '{!! url()->current() !!}',
         },
         columns:[
-          { data:'id', name:'id'},
+          { data:'name', name:'name'},
+          { data:'alamat', name:'alamat'},
+          { data:'user.email', name:'user.email'},
+          { data:'gender', name:'gender'},
        
           
          

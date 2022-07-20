@@ -35,21 +35,31 @@
         <a href="{{url('siswa/transaction/create')}}" class="btn btn-info">Tambah</a>
     </div>
 </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-outline card-info">
+      <div class="card-body">
+        <div class="table-responsive">
 
-<table class="table table-bordered" id="transaction-table" style="width: 100%">
-    <thead>
-        <tr>
-            <th><b>No</b></th>
-            <th><b>Nominal</b></th>
-            <th><b>Nama Pembayaran</b></th>
-            <th><b>Jenis Pembayaran</b></th>
-            <th><b>Status Pembayaran</b></th>
-            <th><b>Tanggal Bayar</b></th>
-           
-        </tr>
-    </thead>
-
-</table>
+          <table class="table table-bordered" id="transaction-table" style="width: 100%">
+              <thead>
+                  <tr>
+                      <th><b>No</b></th>
+                      <th><b>Nominal</b></th>
+                      <th><b>Nama Pembayaran</b></th>
+                      <th><b>Jenis Pembayaran</b></th>
+                      <th><b>Status Pembayaran</b></th>
+                      <th><b>Tanggal Bayar</b></th>
+                     
+                  </tr>
+              </thead>
+          
+          </table>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 @endsection
 

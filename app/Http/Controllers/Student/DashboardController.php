@@ -18,7 +18,7 @@ class DashboardController extends Controller
     public function friend()
     {
         if (request()->ajax()) {
-            $friend = Student::where('room_id', Auth::user()->student->room_id)->where('id', "!=", Auth::user()->student->id);
+            $friend = Student::where('room_id', Auth::user()->student->room_id)->where('id', "!=", Auth::user()->student->id)->with('user');
 
             return DataTables::of($friend)
                 ->make();
