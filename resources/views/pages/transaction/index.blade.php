@@ -21,7 +21,8 @@
             </div>
          
            
-            <button type="buttom" class="btn btn-success" id="downloadPDF"> Download PDF</button>
+            <button type="button" class="btn btn-primary" id="search"> Filter</button>
+            <button type="button" class="btn btn-success" id="downloadPDF"> Download PDF</button>
             <button type="button" class="btn btn-warning btn block" id="downloadEXCEL">
                 Download EXCEL
               </button>
@@ -80,7 +81,9 @@
         ]
     })
 
-     
+    $("#search").on('click',function (e) {
+            $('#transaction-table').DataTable().draw(true);
+        });
 
             // Download PDF
     $("#downloadPDF").on('click',function (e) {
