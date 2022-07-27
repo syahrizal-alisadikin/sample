@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Midtrans\Snap;
 use Midtrans\Config;
 use Midtrans\Notification;
-
+use App\Models\Transaction;
 class MidtransController extends Controller
 {
     public function callback()
@@ -36,11 +36,13 @@ class MidtransController extends Controller
                     $transaction->status = 'PENDING';
                 } else {
                     $transaction->status = 'SUCCESS';
-                }
+		$transaction->tanggal_bayar = date('Y-m-d');                
+           }
             }
         } else if ($status == 'settlement') {
             $transaction->status = 'SUCCESS';
-        } else if ($status == 'pending') {
+        $transaction->tanggal_bayar = date('Y-m-d');
+} else if ($status == 'pending') {
             $transaction->status = 'PENDING';
         } else if ($status == 'deny') {
             $transaction->status = 'CANCELLED';

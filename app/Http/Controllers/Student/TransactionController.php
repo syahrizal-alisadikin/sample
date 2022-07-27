@@ -22,12 +22,12 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         if (request()->ajax()) {
-            $transactions = Transaction::where('student_id', Auth::user()->student->id);
+            $transactions = Transaction::query();
 
             if (!empty($request->start) && !empty($request->end)) {
-                $transactions->whereBetween('tanggal_bayar', [$request->start, $request->end]);
+            $transactions->whereBetween('tanggal_bayar', [$request->start, $request->end]);
             }
-            $transactions->with('cost')->latest()->get();
+            $transactions->where('student_id', Auth::user()->student->id)->with('cost')->latest()->get();
             return DataTables::of($transactions)
                 ->addIndexColumn()
 
