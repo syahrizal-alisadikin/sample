@@ -25,9 +25,9 @@ class TransactionController extends Controller
             $transactions = Transaction::query();
 
             if (!empty($request->start) && !empty($request->end)) {
-            $transactions->whereBetween('tanggal_bayar', [$request->start, $request->end]);
+                $transactions->whereBetween('tanggal_bayar', [$request->start, $request->end]);
             }
-            $transactions->where('student_id', Auth::user()->student->id)->with('cost')->latest()->get();
+            $transactions->where('student_id', Auth::user()->student->id)->with('cost')->latest();
             return DataTables::of($transactions)
                 ->addIndexColumn()
 

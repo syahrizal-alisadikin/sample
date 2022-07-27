@@ -123,12 +123,7 @@ style="bottom: 0px">
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
     </script>
-<<<<<<< HEAD
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-=======
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
->>>>>>> 677c1de (update)
     @stack('javascript')
 </body>
 

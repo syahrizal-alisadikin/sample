@@ -9,7 +9,7 @@
 @endif
 <div class="row">
     <div class="col-md-4">
-        <form action="#" method="GET" id="form-download">
+        <form action="{{ route('siswa.transaction.index') }}" method="GET" id="form-download">
             @csrf
             <div class="form-group">
               <label>Tanggal Mulai</label>
@@ -21,7 +21,7 @@
             </div>
          
            
-            <button type="button" class="btn btn-primary" id="search"> Filter</button>
+            <button type="submit" class="btn btn-primary" id="search"> Filter</button>
             <button type="button" class="btn btn-success" id="downloadPDF"> Download PDF</button>
             <button type="button" class="btn btn-warning btn block" id="downloadEXCEL">
                 Download EXCEL
@@ -67,9 +67,9 @@
 <script>
     var datatable = $('#transaction-table').DataTable({
         proccesing:true,
-        serverSide:true,
-        stateSave: true,
-        order:[[0,'desc']],
+        // serverSide:true,
+        // stateSave: true,
+        // order:[[0,'desc']],
         ajax:{
           url: '{!! url()->current() !!}',
           type: 'GET',
@@ -81,7 +81,7 @@
          
         },
         columns:[
-            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            { data: 'DT_RowIndex', name: 'DT_RowIndex' },
           { data:'nominal', name:'nominal'},
           { data:'cost.name', name:'cost.name'},
           { data:'jenis_pembayaran', name:'jenis_pembayaran'},
