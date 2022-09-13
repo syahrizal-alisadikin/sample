@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SchoolYear;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class SchoolYearController extends Controller
 {
@@ -14,16 +16,34 @@ class SchoolYearController extends Controller
      */
     public function index(Request $request)
     {
-        $years = \App\Models\SchoolYear::paginate(10);
-        $filterKeyword = $request->get('year');
-        if ($filterKeyword) {
-            $years = \App\Models\SchoolYear::where(
-                "year",
-                "LIKE",
-                "%$filterKeyword%"
-            )->paginate(10);
+        // $years = \App\Models\SchoolYear::paginate(10);
+        // $filterKeyword = $request->get('year');
+        // if ($filterKeyword) {
+        //     $years = \App\Models\SchoolYear::where(
+        //         "year",
+        //         "LIKE",
+        //         "%$filterKeyword%"
+        //     )->paginate(10);
+        // }
+        // return view('school-years.index', ['years' => $years]);
+        if (request()->ajax()) {
+
+            $years = SchoolYear::query();
+
+            return DataTables::of($years)
+                ->addIndexColumn()
+
+                ->addColumn('actions', function ($item) {
+                    return '
+                   <form  action="' . route('school-years.destroy', $item->id) . '" method="POST">' . method_field('delete') . csrf_field() . '<button type="submit" class="btn btn-danger dropdown-item text-white">Hapus</button><a class="btn btn-primary text-white btn-sm" type="hidden" href="' . route('school-years.edit', $item->id) . '">Ubah</a>';
+                })
+
+
+                ->rawColumns(['actions'])
+
+                ->make(true);
         }
-        return view('school-years.index', ['years' => $years]);
+        return view('school-years.index');
     }
 
     /**
@@ -53,7 +73,7 @@ class SchoolYearController extends Controller
 
         $new_year->created_by = Auth::user()->id;
         $new_year->save();
-        return redirect()->route('school-years.create')->with(
+        return redirect()->route('school-years.index')->with(
             'status',
             'Data Tahun berhasil ditambah'
         );
@@ -95,7 +115,7 @@ class SchoolYearController extends Controller
         $year->year = $request->get('year');
         $year->description = $request->get('description');
         $year->save();
-        return redirect()->route('school-years.edit', [$id])->with('status', 'Data Tahun berhasil Diubah');
+        return redirect()->route('school-years.index', [$id])->with('status', 'Data Tahun berhasil Diubah');
     }
 
     /**

@@ -46,10 +46,10 @@
         <label class="form-label">Password Confirmation</label>
         <input type="password" name="password_confirmation" class="form-control" placeholder="Password Confirmation" value="{{ old('password',$student->password_confirmation) }}" />
         <label class="form-label">Kelas</label>
-        <select name="room_id" class="form-control @error('room_id') is-invalid @enderror" required>
+        <select name="rombel_id" class="form-control @error('rombel_id') is-invalid @enderror" required>
             <option value="">-- Pilih Kelas --</option>
-            @foreach ($rooms as $item)
-            <option value="{{$item->id}}" {{ $item->id == $student->room_id ? "selected" : "" }}>{{$item->name}}</option>
+            @foreach ($rombels as $item)
+            <option value="{{$item->id}}" {{ $item->id == $student->rombel_id ? "selected" : "" }}>{{$item->name}}</option>
             @endforeach
         </select>
 

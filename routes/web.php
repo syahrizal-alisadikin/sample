@@ -1,18 +1,21 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
 use App\Models\Room;
 use App\Models\SchoolYear;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\SchoolYearController;
-use App\Http\Controllers\CostController;
+use App\Http\Controllers\LevelController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TransactionOfflineController;
+use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\FeeController;
+use App\Http\Controllers\RombelController;
 use App\Http\Controllers\Student\DashboardController;
+use App\Http\Controllers\TransactionOfflineController;
 use App\Http\Controllers\Student\TransactionController;
 
 /*
@@ -64,6 +67,10 @@ Route::prefix('admin')
         Route::get('/download-offlines/downloadPDF', [TransactionOfflineController::class, 'downloadPDF1'])->name('transactionofflines.downloadPDF1');
 
         Route::get('/download-offlines/downloadEXCEL', [TransactionOfflineController::class, 'downloadEXCEL1'])->name('transactionofflines.downloadEXCEL1');
+
+        Route::resource('rombels', RombelController::class);
+        Route::resource('levels', LevelController::class);
+        Route::resource('fees', FeeController::class);
     });
 
 Route::prefix('siswa')

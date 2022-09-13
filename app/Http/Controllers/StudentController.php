@@ -6,8 +6,10 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\SchoolYear;
+use App\Models\Rombel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 
 class StudentController extends Controller
 {
@@ -18,12 +20,35 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
+        $years = SchoolYear::all();
+        $rombels = Rombel::all();
+        if (request()->ajax()) {
+            $students = Student::query();
+            $students->with('rombel', 'years');
 
-        $students = Student::with('room', 'years')->paginate(10);
+            return DataTables::of($students)
+                ->addIndexColumn()
 
+                ->addColumn('actions', function ($item) {
+                    return '
+                   <form  action="' . route('students.destroy', $item->id) . '" method="POST">' . method_field('delete') . csrf_field() . '<button type="submit" class="btn btn-danger dropdown-item text-white">Hapus</button><a class="btn btn-primary text-white btn-sm" type="hidden" href="' . route('students.edit', $item->id) . '">Ubah</a>';
+                })
+                ->filter(function ($instance) use ($request) {
+                    if ($request->get('kelas')) {
+                        $instance->where('rombel_id', $request->get('kelas'));
+                    }
+                })
+                ->filter(function ($instance) use ($request) {
+                    if ($request->get('tahun')) {
+                        $instance->where('school_year_id', $request->get('tahun'));
+                    }
+                })
 
-        //dd($students);
-        return view('students.index', \compact('students'));
+                ->rawColumns(['actions'])
+
+                ->make(true);
+        }
+        return view('students.index', compact('years', 'rombels'));
     }
 
 
@@ -36,7 +61,8 @@ class StudentController extends Controller
     {
         $school_years = SchoolYear::all();
         $rooms = Room::all();
-        return view('students.create', compact('school_years', 'rooms'));
+        $rombels = Rombel::all();
+        return view('students.create', compact('school_years', 'rooms', 'rombels'));
         // $kelas = Room::get();
         // $tahun = SchoolYear::get();
         //dd($kelas);
@@ -68,7 +94,7 @@ class StudentController extends Controller
             'nisn' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'room_id' => ['required', 'integer'],
+            'rombel_id' => ['required', 'integer'],
             'school_year_id' => ['required', 'integer'],
             'gender' => ["required"],
             'address' => ["required"]
@@ -86,7 +112,7 @@ class StudentController extends Controller
             'user_id' => $user->id,
             'name' => $user->name,
             'nisn' => $request->nisn,
-            'room_id' => $request->room_id,
+            'rombel_id' => $request->rombel_id,
             'school_year_id' => $request->school_year_id,
             'gender' => $request->gender,
             'address' => $request->address,
@@ -94,7 +120,7 @@ class StudentController extends Controller
 
         ]);
 
-        return redirect()->route('students.create')->with(
+        return redirect()->route('students.index')->with(
             'status',
             'Data Siswa berhasil ditambah'
         );
@@ -121,9 +147,10 @@ class StudentController extends Controller
     {
         $school_years = SchoolYear::all();
         $rooms = Room::all();
+        $rombels = Rombel::all();
         $student = \App\Models\Student::findOrFail($id);
         $user = \App\Models\User::findOrFail($student->user_id);
-        return view('students.edit', compact('school_years', 'rooms', 'student', 'user'));
+        return view('students.edit', compact('school_years', 'rooms', 'student', 'user', 'rombels'));
         //return view('students.edit', ['student' => $student_edit]);
     }
     /**
@@ -139,7 +166,7 @@ class StudentController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'nisn' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'max:255'],
-            'room_id' => ['required', 'integer'],
+            'rombel_id' => ['required', 'integer'],
             'school_year_id' => ['required', 'integer'],
             'gender' => ["required"],
             'address' => ["required"],
@@ -165,12 +192,12 @@ class StudentController extends Controller
         }
         $student->name = $request->input('name');
         $student->nisn = $request->input('nisn');
-        $student->room_id = $request->input('room_id');
+        $student->rombel_id = $request->input('rombel_id');
         $student->school_year_id = $request->input('school_year_id');
         $student->gender = $request->input('gender');
         $student->address = $request->input('address');
         $student->save();
-        return redirect()->route('students.edit', [$id])->with('status', 'Data Siswa berhasil Diubah');
+        return redirect()->route('students.index', [$id])->with('status', 'Data Siswa berhasil Diubah');
     }
 
 

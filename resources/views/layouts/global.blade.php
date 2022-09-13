@@ -77,14 +77,19 @@ mb-4" type="text" placeholder="Search" aria-label="Search" /> -->
                     <li><a href="{{ url('/admin') }}"><span class="oi oi-home"></span>Beranda</a></li>
                     <h6 class="m-2">Data Master</h6>
                     @if(Auth::user()->roles == "STAFF")
-                    <li>
+                    <!-- <li>
                         <a href="{{route('rooms.index')}}">
                             <span class="oi oi-tag"></span>Kelas
                         </a>
+                    </li> -->
+                    <li>
+                        <a href="{{route('levels.index')}}">
+                            <span class="oi oi-badge"></span>Tingkat
+                        </a>
                     </li>
                     <li>
-                        <a href="{{route('students.index')}}">
-                            <span class="oi oi-people"></span>Siswa
+                        <a href="{{route('rombels.index')}}">
+                            <span class="oi oi-tag"></span>Kelas
                         </a>
                     </li>
                     <li>
@@ -93,8 +98,19 @@ mb-4" type="text" placeholder="Search" aria-label="Search" /> -->
                         </a>
                     </li>
                     <li>
+                        <a href="{{route('fees.index')}}">
+                            <span class="oi oi-dollar"></span> Biaya
+                        </a>
+                    </li>
+
+                    <!-- <li>
                         <a href="{{route('costs.index')}}">
                             <span class="oi oi-dollar"></span> Biaya
+                        </a>
+                    </li> -->
+                    <li>
+                        <a href="{{route('students.index')}}">
+                            <span class="oi oi-people"></span>Siswa
                         </a>
                     </li>
                     <li>

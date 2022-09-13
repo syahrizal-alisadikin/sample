@@ -1,5 +1,5 @@
 @extends("layouts.global")
-@section("title") Daftar Tahun @endsection
+@section("title") Daftar Kelas @endsection
 @section("content")
 
 @if(session('status'))
@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-md-12 text-right mb-3">
-        <a href="{{route('school-years.create')}}" class="btn btn-info">Tambah</a>
+        <a href="{{route('rombels.create')}}" class="btn btn-info">Tambah</a>
     </div>
 </div>
 
@@ -20,11 +20,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="year-table" style="width: 100%">
+                    <table class="table table-bordered" id="rombel-table" style="width: 100%">
                         <thead>
                             <tr>
-                                <th><b>Tahun</b></th>
-                                <th><b>Keterangan</b></th>
+                                <th><b>Kelas</b></th>
                                 <th><b>Actions</b></th>
                             </tr>
                         </thead>
@@ -40,7 +39,7 @@
 
 @push('javascript')
 <script>
-    var datatable = $('#year-table').DataTable({
+    var datatable = $('#rombel-table').DataTable({
         proccesing: true,
         serverSide: true,
         ordering: true,
@@ -48,12 +47,8 @@
             url: '{!! url()->current() !!}',
         },
         columns: [{
-                data: 'year',
-                name: 'year'
-            },
-            {
-                data: 'description',
-                name: 'description'
+                data: 'name',
+                name: 'name'
             },
             {
                 data: 'actions',

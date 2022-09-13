@@ -8,59 +8,125 @@
 </div>
 @endif
 
+<div class="row">
+    <div class="col-md-12">
+        <h6>Filter Siswa</h6>
+    </div>
+    <div class="col-md-4">
+        <Label>Kelas</Label>
+        <select name="" id="kelas" class="form-control filter">
+            <option value="">-- Filter Kelas --</option>
+            @foreach ($rombels as $item)
+            <option value="{{$item->id}}">{{$item->name}}</option>
+            @endforeach
+        </select>
+        <br>
+        <button type="button" class="btn btn-primary" id="search"> Filter</button>
+    </div>
+    <div class="col-md-4">
+        <Label>Tahun</Label>
+        <select name="tahun" id="tahun" class="form-control filter">
+            <option value="">-- Filter Tahun --</option>
+            @foreach ($years as $item)
+            <option value="{{$item->id}}">{{$item->year}}</option>
+            @endforeach
+        </select>
+        <br>
+        <button type="button" class="btn btn-primary" id="search1"> Filter</button>
+    </div>
+
+</div>
 
 <div class="row">
     <div class="col-md-12 text-right mb-3">
         <a href="{{route('students.create')}}" class="btn btn-info">Tambah</a>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-12">
-        <table id="example" class="table table-bordered table-stripped">
-            <thead>
-                <tr>
-                    <th><b>No</b></th>
-                    <th><b>NISN</b></th>
-                    <th><b>Nama</b></th>
-                    <th><b>Alamat</b></th>
-                    <th><b>Jenis Kelamin</b></th>
-                    <th><b>Kelas</b></th>
-                    <th><b>Tahun</b></th>
-                    <th><b>Actions</b></th>
-                </tr>
-            </thead>
-            <tbody>
-                @php $no = 1; @endphp
-                @foreach ($students as $row)
-                <tr>
-                    <td>{{$no++}}</td>
-                    <td>{{$row->nisn}}</td>
-                    <td>{{$row->name}}</td>
-                    <td>{{$row->address}}</td>
-                    <td>{{$row->gender}}</td>
-                    <td>{{$row->room->name ?? "Data tidak ada"}}</td>
-                    <td>{{$row->years->year ?? "Data tidak ada"}}</td>
-                    <td> <a class="btn btn-primary text-white btn-sm" href="{{route('students.edit', [$row->id])}}">Ubah</a>
+        <div class="card card-outline card-info">
+            <div class="card-body">
+                <div class="table-responsive">
 
-                        <form onsubmit="return confirm('Yakin ingin menghapus Data?')" class="d-inline" action="{{route('students.destroy', [$row->id])}}" method="POST">
-                            @csrf
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="submit" value="Hapus" class="btn btn-danger btn-sm">
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colSpan="10">
-                        {{$students->links()}}
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+                    <table class="table table-bordered" id="student-table" style="width: 100%">
+                        <thead>
+                            <tr>
+
+                                <th><b>NISN</b></th>
+                                <th><b>Nama Siswa</b></th>
+                                <th><b>Alamat</b></th>
+                                <th><b>Jenis Kelamin</b></th>
+                                <th><b>Kelas</b></th>
+                                <th><b>Tahun</b></th>
+                                <th><b>Action</b></th>
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+
 @endsection
+@push('javascript')
+<script>
+    var datatable = $('#student-table').DataTable({
+        proccesing: true,
+        serverSide: true,
+        // ordering: true,
+
+        ajax: {
+            url: '{!! url()->current() !!}',
+            data: function(d) {
+                d.kelas = $('#kelas').val()
+                d.tahun = $('#tahun').val()
+
+            }
+        },
+        columns: [{
+                data: 'nisn',
+                name: 'nisn'
+            },
+            {
+                data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'address',
+                name: 'address'
+            },
+            {
+                data: 'gender',
+                name: 'gender'
+            },
+            {
+                data: 'rombel.name',
+                name: 'rombel.name'
+            },
+
+            {
+                data: 'years.year',
+                name: 'years.year'
+            },
+            {
+                data: 'actions',
+                name: 'actions'
+            },
+
+
+
+        ]
+    })
+    $("#search").on('click', function(e) {
+        $('#student-table').DataTable().draw(true);
+
+    });
+    $("#search1").on('click', function(e) {
+        $('#student-table').DataTable().draw(true);
+
+    });
+</script>
+@endpush

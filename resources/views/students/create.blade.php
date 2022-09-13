@@ -43,9 +43,9 @@
         <label class="form-label">Password Confirmation</label>
         <input type="password" name="password_confirmation" class="form-control" placeholder="Password Confirmation" />
         <label class="form-label">Kelas</label>
-        <select name="room_id" class="form-control @error('room_id') is-invalid @enderror" required>
+        <select name="rombel_id" class="form-control @error('rombel_id') is-invalid @enderror" required>
             <option value="">-- Pilih Kelas --</option>
-            @foreach ($rooms as $item)
+            @foreach ($rombels as $item)
             <option value="{{$item->id}}">{{$item->name}}</option>
             @endforeach
         </select>

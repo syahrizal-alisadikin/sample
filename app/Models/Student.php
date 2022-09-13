@@ -25,4 +25,14 @@ class Student extends Model
     {
         return $this->belongsTo(SchoolYear::class, 'school_year_id', 'id');
     }
+
+    public function rombel()
+    {
+        return $this->belongsTo(Rombel::class, 'rombel_id', 'id');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
 }
