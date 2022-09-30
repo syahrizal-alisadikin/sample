@@ -19,6 +19,7 @@ use Barryvdh\DomPDF\PDF as DomPDFPDF;
 
 use Yajra\DataTables\Facades\DataTables;
 use App\Exports\TransactionOfflineExport;
+use App\Models\Fee;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf as WriterPdf;
 
@@ -41,7 +42,7 @@ class TransactionOfflineController extends Controller
             if (!empty($request->start) && !empty($request->end)) {
                 $transactions->whereBetween('tanggal_bayar', [$request->start, $request->end]);
             }
-            $transactions->with('cost', 'student.room')->latest()->get();
+            $transactions->with('fee', 'student.rombel')->latest()->get();
             return DataTables::of($transactions)
                 ->addIndexColumn()
                 // ->addColumn('actions', function ($transactions) {
@@ -61,8 +62,8 @@ class TransactionOfflineController extends Controller
                         
                         ';
                 })
-                        
-                                
+
+
                 ->editColumn('tanggal_bayar', function ($transaction) {
                     return $transaction->tanggal_bayar ?? "-";
                 })
@@ -75,7 +76,7 @@ class TransactionOfflineController extends Controller
 
     public function nominal1($id)
     {
-        $cost = Cost::find($id);
+        $cost = Fee::find($id);
 
         return response()->json([
             'nominal1' => $cost->nominal,
@@ -89,7 +90,7 @@ class TransactionOfflineController extends Controller
      */
     public function create()
     {
-        $cost = Cost::all();
+        $cost = Fee::all();
         $student = Student::all();
         $room = Room::all();
         return view('transaction-offlines.create', [
@@ -171,7 +172,7 @@ class TransactionOfflineController extends Controller
     public function destroy($id)
     {
         $transaction = \App\Models\Transaction::findOrFail($id);
-        
+
         $transaction->delete();
         return redirect()->route('transaction-offlines.index')->with('status', 'Data Pembayaran berhasil Dihapus');
     }

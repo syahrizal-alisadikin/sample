@@ -86,16 +86,16 @@
                 name: 'student.name'
             },
             {
-                data: 'student.room.name',
-                name: 'student.room.name'
+                data: 'student.rombel.name',
+                name: 'student.rombel.name'
             },
             {
                 data: 'nominal',
                 name: 'nominal'
             },
             {
-                data: 'cost.name',
-                name: 'cost.name'
+                data: 'fee.name',
+                name: 'fee.name'
             },
             {
                 data: 'jenis_pembayaran',
