@@ -4,7 +4,7 @@
 
 <div class="col-md-4 mb-3">
     <Label>Nama siswa</Label>
-    <select name="" id="studen_id" class="form-control filter">
+    <select name="" id="student_id" class="form-control filter">
         <option value="">-- Pilih Nama Siswa --</option>
         @foreach ($siswa as $item)
         <option value="{{$item->id}}">{{$item->name}}-{{$item->nisn}}</option>
@@ -41,7 +41,7 @@
 <script>
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
-        $('#studen_id').select2();
+        $('#student_id').select2();
 
         var datatable = $('#transaction-table').DataTable({
         proccesing: true,
@@ -55,7 +55,7 @@
             type: 'GET',
 
             data: function(transaction) {
-                transaction.studen_id = $('#studen_id').val();
+                transaction.student_id = $('#student_id').val();
             }
 
         },
@@ -102,8 +102,8 @@
         });
     });
 
-    $('#studen_id').change(function() {
-        if ($('#studen_id').val() != '') {
+    $('#student_id').change(function() {
+        if ($('#student_id').val() != '') {
             $('#datatables').show();
 
             $('#transaction-table').DataTable().ajax.reload();
