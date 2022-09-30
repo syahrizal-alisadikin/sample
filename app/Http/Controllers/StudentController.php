@@ -21,28 +21,30 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $years = SchoolYear::all();
-        $rombels = Rombel::all();
+        $rombels = Rombel::with('level')->get();
         if (request()->ajax()) {
             $students = Student::query();
-            $students->with('rombel', 'years');
+            $students->with('rombel.level', 'years');
 
             return DataTables::of($students)
                 ->addIndexColumn()
+                ->addColumn('kelas', function (Student $row) {
 
+                    return $row->rombel->level->name . $row->rombel->name;
+                })
                 ->addColumn('actions', function ($item) {
                     return '
-                   <form  action="' . route('students.destroy', $item->id) . '" method="POST">' . method_field('delete') . csrf_field() . '<button type="submit" class="btn btn-danger dropdown-item text-white">Hapus</button><a class="btn btn-primary text-white btn-sm" type="hidden" href="' . route('students.edit', $item->id) . '">Ubah</a>';
+                   <form  action="' . route('students.destroy', $item->id) . '" method="POST">' . method_field('delete') . csrf_field() . '<button type="submit" class="btn btn-danger text-white btn-sm mr-2">Hapus</button><a class="btn btn-primary text-white btn-sm" type="hidden" href="' . route('students.edit', $item->id) . '">Ubah</a>';
                 })
                 ->filter(function ($instance) use ($request) {
                     if ($request->get('kelas')) {
                         $instance->where('rombel_id', $request->get('kelas'));
                     }
-                })
-                ->filter(function ($instance) use ($request) {
                     if ($request->get('tahun')) {
                         $instance->where('school_year_id', $request->get('tahun'));
                     }
                 })
+
 
                 ->rawColumns(['actions'])
 
@@ -61,7 +63,7 @@ class StudentController extends Controller
     {
         $school_years = SchoolYear::all();
         $rooms = Room::all();
-        $rombels = Rombel::all();
+        $rombels = Rombel::with('level')->get();
         return view('students.create', compact('school_years', 'rooms', 'rombels'));
         // $kelas = Room::get();
         // $tahun = SchoolYear::get();

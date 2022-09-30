@@ -43,26 +43,28 @@
         <label class="form-label">Password Confirmation</label>
         <input type="password" name="password_confirmation" class="form-control" placeholder="Password Confirmation" />
         <label class="form-label">Kelas</label>
-        <select name="rombel_id" class="form-control @error('rombel_id') is-invalid @enderror" required>
+        <select id="kelas" name="rombel_id" class="form-control @error('rombel_id') is-invalid @enderror" required>
             <option value="">-- Pilih Kelas --</option>
             @foreach ($rombels as $item)
-            <option value="{{$item->id}}">{{$item->name}}</option>
+            <option value="{{$item->id}}">{{$item->level->name}}{{$item->name}}</option>
             @endforeach
         </select>
-
+        <br>
         <label class="form-label">Jenis Kelamin</label>
-        <select name="gender" class="form-control @error('gender') is-invalid @enderror" required id="">
+        <select id="gender" name="gender" class="form-control @error('gender') is-invalid @enderror" required id="">
             <option value="">Pilih Jenis Kelamin</option>
             <option value="Laki-Laki">Laki-Laki</option>
             <option value="Perempuan">Perempuan</option>
         </select>
+        <br>
         <label class="form-label">Tahun Ajaran</label>
-        <select name="school_year_id" class="form-control @error('school_year_id') is-invalid @enderror" required id="">
+        <select id="tahun" name="school_year_id" class="form-control @error('school_year_id') is-invalid @enderror" required id="">
             <option value="">Pilih Tahun</option>
             @foreach ($school_years as $item)
             <option value="{{$item->id}}">{{$item->year}}</option>
             @endforeach
         </select>
+        <br>
         <label class="form-label">Alamat</label>
         <textarea name="address" id="" cols="30" class="form-control @error('address') is-invalid @enderror" placeholder="Masukan Alamat..." rows="5">{{ old('address') }}</textarea>
         @error("address")
@@ -79,3 +81,17 @@
     </form>
 </div>
 @endsection
+@push('javascript')
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('#kelas').select2();
+    });
+    $(document).ready(function() {
+        $('#tahun').select2();
+    });
+    $(document).ready(function() {
+        $('#gender').select2();
+    });
+</script>
+@endpush

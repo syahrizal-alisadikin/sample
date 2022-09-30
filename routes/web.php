@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\FeeController;
 use App\Http\Controllers\RombelController;
@@ -71,6 +72,7 @@ Route::prefix('admin')
         Route::resource('rombels', RombelController::class);
         Route::resource('levels', LevelController::class);
         Route::resource('fees', FeeController::class);
+        Route::resource('bills', BillController::class);
     });
 
 Route::prefix('siswa')

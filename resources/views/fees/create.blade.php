@@ -14,7 +14,7 @@
         <label>Nominal</label><br>
         <input type="number" class="form-control" name="nominal" required /> <br>
         <label class="form-label">Tingkat</label>
-        <select name="level_id" class="form-control @error('level_id') is-invalid @enderror" required>
+        <select name="level_id" class="form-control @error('level_id') is-invalid @enderror">
             <option value="">-- Pilih Tingkat --</option>
             @foreach ($levels as $item)
             <option value="{{$item->id}}">{{$item->name}}</option>

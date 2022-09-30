@@ -31,7 +31,7 @@ class FeeController extends Controller
                 // })
                 ->addColumn('actions', function ($item) {
                     return '
-                   <form  action="' . route('fees.destroy', $item->id) . '" method="POST">' . method_field('delete') . csrf_field() . '<button type="submit" class="btn btn-danger dropdown-item text-white">Hapus</button><a class="btn btn-primary text-white btn-sm" type="hidden" href="' . route('fees.edit', $item->id) . '">Ubah</a>';
+                   <form  action="' . route('fees.destroy', $item->id) . '" method="POST">' . method_field('delete') . csrf_field() . '<button type="submit" class="btn btn-danger text-white btn-sm mr-2">Hapus</button><a class="btn btn-primary text-white btn-sm" type="hidden" href="' . route('fees.edit', $item->id) . '">Ubah</a>';
                 })
 
 

@@ -17,11 +17,11 @@
         <select name="" id="kelas" class="form-control filter">
             <option value="">-- Filter Kelas --</option>
             @foreach ($rombels as $item)
-            <option value="{{$item->id}}">{{$item->name}}</option>
+            <option value="{{$item->id}}">{{$item->level->name}}{{$item->name}}</option>
             @endforeach
         </select>
         <br>
-        <button type="button" class="btn btn-primary" id="search"> Filter</button>
+        <!-- <button type="button" class="btn btn-primary" id="search"> Filter</button> -->
     </div>
     <div class="col-md-4">
         <Label>Tahun</Label>
@@ -32,7 +32,7 @@
             @endforeach
         </select>
         <br>
-        <button type="button" class="btn btn-primary" id="search1"> Filter</button>
+        <!-- <button type="button" class="btn btn-primary" id="search1"> Filter</button> -->
     </div>
 
 </div>
@@ -103,8 +103,8 @@
                 name: 'gender'
             },
             {
-                data: 'rombel.name',
-                name: 'rombel.name'
+                data: 'kelas',
+                name: 'kelas'
             },
 
             {
@@ -120,13 +120,27 @@
 
         ]
     })
-    $("#search").on('click', function(e) {
+    $("#kelas").change(function() {
         $('#student-table').DataTable().draw(true);
-
     });
-    $("#search1").on('click', function(e) {
+
+    $("#tahun").change(function() {
         $('#student-table').DataTable().draw(true);
-
     });
+    // $("#search").on('click', function(e) {
+    //     $('#student-table').DataTable().draw(true);
+
+    // });
+    // $("#search1").on('click', function(e) {
+    //     $('#student-table').DataTable().draw(true);
+
+    // });
+    $(document).ready(function() {
+        $('#kelas').select2();
+    });
+    $(document).ready(function() {
+        $('#tahun').select2();
+    });
+    
 </script>
 @endpush

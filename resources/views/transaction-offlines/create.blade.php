@@ -17,7 +17,7 @@
             </select>
         </div> -->
 
-        <div class="card-body" id="student" @error('room_id') style="display: none" @enderror>
+        <div class="card-body" id="student">
             <label>Nama Siswa</label>
             <select name="student_id" class="form-control">
                 <option value="">Pilih Siswa</option>

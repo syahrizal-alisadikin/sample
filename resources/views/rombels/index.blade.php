@@ -47,8 +47,8 @@
             url: '{!! url()->current() !!}',
         },
         columns: [{
-                data: 'name',
-                name: 'name'
+                data: 'kelas',
+                name: 'kelas'
             },
             {
                 data: 'actions',
