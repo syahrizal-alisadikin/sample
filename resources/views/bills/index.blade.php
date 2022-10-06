@@ -36,6 +36,23 @@
     
     </table>
 </div>
+<div id="fees" style="display:none">
+    <table class="table table-bordered" id="fees-table" style="width: 100%; ">
+        <thead>
+            <tr>
+                <th><b>No</b></th>
+                <th><b>Nama</b></th>
+                <th><b>Nominal</b></th>
+                <th><b>Tahun</b></th>
+                
+                <th style="width: 20%"><b>Actions</b></th>
+                
+    
+            </tr>
+        </thead>
+    
+    </table>
+</div>
 @endsection
 @push('javascript')
 <script>
@@ -100,13 +117,79 @@
 
         ]
         });
+
+           // get datatable fees
+           var datatable = $('#fees-table').DataTable({
+        proccesing: true,
+        serverSide: true,
+        order: [
+            [0, 'desc']
+        ],
+        ajax: {
+            url: '{!! route('bill.fees') !!}',
+            type: 'GET',
+
+            data: function(transaction) {
+                transaction.student_id = $('#student_id').val();
+            }
+
+        },
+        columns: [{
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex',
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: 'name',
+                name: 'name'
+            },
+           
+            {
+                data: 'nominal',
+                name: 'nominal'
+            },
+            {
+                data: 'years.year',
+                name: 'years.year'
+            },
+          
+            {
+                data: 'actions',
+                name: 'actions'
+            },
+
+        ]
+        });
+        // end get datatable fees
     });
 
     $('#student_id').change(function() {
-        if ($('#student_id').val() != '') {
-            $('#datatables').show();
 
-            $('#transaction-table').DataTable().ajax.reload();
+        const student_id = $('#student_id').val();
+        if (student_id != '') {
+         
+            $.ajax({
+                url: "{{url('admin/bill/check')}}/" + student_id,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    if(data.status == 'success'){
+                        $('#datatables').show();
+                        $('#fees').hide();
+                        $('#transaction-table').DataTable().ajax.reload();
+                        $('#fees-table').DataTable().ajax.reload();
+
+                    }else{
+                        $('#datatables').hide();
+                        $('#fees').show();
+                        $('#fees-table').DataTable().ajax.reload();
+                        $('#transaction-table').DataTable().ajax.reload();
+
+
+                    }
+                }
+            });
         } else {
             $('#datatables').hide();
             // display none transaction table

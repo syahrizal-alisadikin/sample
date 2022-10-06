@@ -23,7 +23,7 @@ class StudentController extends Controller
         $years = SchoolYear::all();
         $rombels = Rombel::with('level')->get();
         if (request()->ajax()) {
-            $students = Student::query();
+            $students = Student::query()->with('years');
             $students->with('rombel.level', 'years');
 
             return DataTables::of($students)

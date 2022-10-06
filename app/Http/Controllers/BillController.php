@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fee;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
@@ -38,7 +39,7 @@ class BillController extends Controller
                     <form  action="' . route('bills.destroy', $item->id) . '" method="POST">' . method_field('delete') . csrf_field() . '<button type="submit" class="btn btn-danger text-white btn-sm mr-2">Hapus</button>';
 
                     if ($item->status == 'PENDING') {
-                        $button .= '<a class="btn btn-primary text-white btn-sm" type="hidden" href="' . route('bills.edit', $item->id) . '">Bayar</a>';
+                        $button .= '<a class="btn btn-primary text-white btn-sm" href="' . route('bills.edit', $item->id) . '">Bayar</a>';
                     }
                     //    button edit
 
@@ -55,6 +56,34 @@ class BillController extends Controller
         }
         $siswa = Student::all();
         return view('bills.index', compact('siswa'));
+    }
+
+    public function getDataFee()
+    {
+        $student = Student::find(request()->student_id);
+        $fees = Fee::where('level_id', $student->rombel->level_id ?? null)->with('years');
+
+        return DataTables::of($fees)
+            ->addIndexColumn()
+            // ->addColumn('actions', function ($transactions) {
+            //     $button = " <a class='btn btn-primary text-white btn-sm' id='".$transactions->id."'>Ubah</a>";
+            //     $button .= " <a class='btn btn-danger text-white btn-sm' id='".$transactions->id."'>Hapus</a>";
+            //     return $button;
+            // })
+            ->addColumn('actions', function ($item) use ($student) {
+
+
+                $button = '<a class="btn btn-primary text-white btn-sm" type="hidden" href="' . route('transaction-offlines.create') . '?cost_id=' . $item->id . "?student_id=" . $student->id . '">Bayar</a>';
+                //    button edit
+
+                return $button;
+            })
+
+
+
+            ->rawColumns(['actions'])
+
+            ->make(true);
     }
 
     /**
@@ -130,5 +159,21 @@ class BillController extends Controller
         $transaction = Transaction::findOrFail($id);
         $transaction->delete();
         return redirect()->route('bills.index')->with('success', 'Data berhasil dihapus');
+    }
+
+    public function check($id)
+    {
+        $transaction = Transaction::where('student_id', $id)->count();
+        if ($transaction > 0) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Siswa sudah melakukan pembayaran'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Siswa belum melakukan pembayaran'
+            ]);
+        }
     }
 }

@@ -73,6 +73,8 @@ Route::prefix('admin')
         Route::resource('levels', LevelController::class);
         Route::resource('fees', FeeController::class);
         Route::resource('bills', BillController::class);
+        Route::get('bill/check/{id}', [BillController::class, 'check'])->name('bill.check');
+        Route::get('bill/getDataFee', [BillController::class, 'getDataFee'])->name('bill.fees');
     });
 
 Route::prefix('siswa')
