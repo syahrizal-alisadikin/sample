@@ -52,7 +52,7 @@
             <select name="cost_id" class="form-control" required id="cost_id">
                 <option value="">Pilih Pembayaran</option>
                 @foreach ($cost as $t)
-                <option value="{{ $t->id }}">{{ $t->name }}</option>
+                <option value="{{ $t->id }}" {{ $t->id == request()->cost_id ? "selected" :"" }}>{{ $t->name }}</option>
                 @endforeach
             </select>
             @error('cost_id')
@@ -86,6 +86,23 @@
 @endsection
 @push('javascript')
 <script>
+// document ready function
+$(document).ready(function() {
+    var cost_id = $("#cost_id").val();
+        if (cost_id != "") {
+            $.ajax({
+                url: "{{url('admin/transaction-offlines/nominal')}}/" + cost_id,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    $("#nominal1").val(data.nominal1);
+                }
+            });
+        } else {
+            $("#nominal1").val("0");
+        }
+});
     $("#cost_id").change(function() {
         var cost_id = $("#cost_id").val();
         if (cost_id != "") {

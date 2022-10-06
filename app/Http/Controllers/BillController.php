@@ -73,7 +73,7 @@ class BillController extends Controller
             ->addColumn('actions', function ($item) use ($student) {
 
 
-                $button = '<a class="btn btn-primary text-white btn-sm" type="hidden" href="' . route('transaction-offlines.create') . '?cost_id=' . $item->id . "?student_id=" . $student->id . '">Bayar</a>';
+                $button = '<a class="btn btn-primary text-white btn-sm" type="hidden" href="' . route('transaction-offlines.create') . '?cost_id=' . $item->id . "&student_id=" . $student->id . '">Bayar</a>';
                 //    button edit
 
                 return $button;
