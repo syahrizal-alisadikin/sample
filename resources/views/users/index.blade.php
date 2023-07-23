@@ -9,12 +9,14 @@
 @endif
 <div class="row">
     <div class="col-md-6">
-        <form action="{{route('users.index')}}">
+        <form action="{{route('users.index')}}" id="form_pdf">
             <div class="input-group mb-3">
                 <input value="{{Request::get('keyword')}}" name="keyword" class="form-control col-md-8" type="text" placeholder="Temukan Pengguna berdasarkan e-mail" />
                 <div class="input-group-append">
                     <input type="submit" value="Filter" class="btn btn-light ">
+                    <button type="button" id="btn-pdf" class="btn btn-primary">Download PDF</button>
                 </div>
+                
             </div>
         </form>
     </div>
@@ -90,3 +92,13 @@
 </table>
 
 @endsection
+@push('javascript')
+    <script>
+        $('#btn-pdf').on('click',function(){
+            var data = $('#form_pdf').serialize();
+            var url = "{{ url('user-pdf') }}?"+data;
+            window.open(url,'_blank');
+
+        })
+    </script>
+@endpush

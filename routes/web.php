@@ -33,6 +33,8 @@ use App\Http\Controllers\Student\TransactionController;
 Route::get('/', function () {
     return view('auth.login');
 });
+
+Route::get('/user-pdf', [HomeController::class, 'pdf']);
 Auth::routes();
 
 Route::match(["GET", "POST"], "/register", function () {
